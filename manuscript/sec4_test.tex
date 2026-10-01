@@ -1,0 +1,41 @@
+\section{Testing unimodality at a certified width}\label{sec:test}
+
+\subsection{The statistic}
+
+Let $p=(p_1,\dots,p_K)$ be a vector of cell probabilities and let $\U$ be the set of unimodal sequences, those for which $p_1\le\cdots\le p_m\ge\cdots\ge p_K$ for some $m$. For $\lambda\ge0$ and $k\in\{1,2\}$ let
+\[
+E_k(p,\lambda)=\max_{C}\ \sum_{i\in C}(p_i-\lambda),
+\]
+the maximum running over unions of at most $k$ sets of consecutive indices, and define the discrete excess mass difference
+\[
+\Delta(p)=\sup_{\lambda\ge0}\bigl\{E_2(p,\lambda)-E_1(p,\lambda)\bigr\},
+\]
+the analogue for a cell vector of the functional of \citet{MullerSawitzki1991}. Every upper level set of a unimodal sequence is a set of consecutive indices, so $\Delta(p)=0$ for $p\in\U$; if $p\notin\U$ there are $i<j<k$ with $p_j<\min(p_i,p_k)$, and any $\lambda$ between $p_j$ and $\min(p_i,p_k)$ gives $\Delta(p)>0$. Thus $\Delta(p)=0$ if and only if $p\in\U$. For fixed $\lambda$ both maxima are computed in $O(K)$ operations from running extrema of partial sums, and the maximizing pair of blocks delivers the indices $j_1<i_2$ of \eqref{eq:pstar}. The supremum is attained on the finite set of levels at which two candidate blocks have equal excess mass (Lemma~S1 of the supplement), and we compute it exactly by following the breakpoints of the piecewise linear functions $E_1$ and $E_2$.
+
+Given reports, let $\hat p$ be the weighted cell proportions at the certified width, with boundary reports split as in Lemma~\ref{lem:split}, over the bulk of the distribution: cells are retained from the one containing the first percentile to the one containing the 95th, so that a handful of observations in a sparse tail cannot create a valley. The null hypothesis is $H_0:p\in\U$, which by Lemmas~\ref{lem:split} and~\ref{lem:binning} is implied, up to the boundary term, by unimodality of the latent density. When fewer than four cells remain the question is not posed and the procedure reports that the resolution is insufficient.
+
+\subsection{Calibration on the boundary of the null}
+
+The difficulty is that $\U$ is a union of polyhedral cones with a boundary, and the distribution of $\Delta(\hat p)$ depends on where in $\U$ the truth lies. If $p$ is strictly unimodal, small perturbations remain unimodal and $\Delta(\hat p)=0$ with probability tending to one. If $p$ has a flat stretch, perturbations of order $n^{-1/2}$ create valleys inside it, and $\sqrt n\,\Delta(\hat p)$ has a nondegenerate limit. Precisely, call a pair of adjacent cells $(k,k+1)$ a \emph{contact} of $p\in\U$ if $p_k=p_{k+1}$, unless these two cells form the entire top plateau of $p$ (that is, $p_{k-1}<p_k=p_{k+1}>p_{k+2}$, with $p_0=p_{K+1}=-\infty$). A flat stretch whose neighbour is higher on one side, or which is at least three cells long, lets a perturbation dig a valley; a top plateau of exactly two cells does not. Let $\mathcal T(p)$ be the set of contacts.
+
+Resampling from $\hat p$ fails, because $\hat p$ is outside $\U$ with non-vanishing probability \citep{Andrews2000}. Resampling from the projection of $\hat p$ on $\U$ fails more subtly: within a flat stretch the projection is itself random, retaining some ties and breaking others, and the bootstrap then reproduces the behaviour of the statistic at a random nearby point of $\U$ rather than at $p$. We therefore first decide which adjacent cells are tied. Let $\kappa_n\to\infty$ with $\kappa_n/\sqrt n\to0$; pool adjacent cells $k$ and $k+1$ whenever
+\[
+|\hat p_{k+1}-\hat p_k|\le\kappa_n\{(\hat p_k+\hat p_{k+1})/n\}^{1/2},
+\]
+replacing each maximal run of pooled cells by its average, and let $\bar p_n$ be the least-squares projection of the result on $\U$. This is generalized moment selection \citep{AndrewsSoares2010} applied to the adjacent differences; we use $\kappa_n=(\log n)^{1/2}$. The bootstrap draws $\hat p^\ast\sim\mathrm{Mult}(n,\bar p_n)/n$, and the test rejects when $\Delta(\hat p)$ exceeds the $(1-\alpha)$ quantile $c_n^\ast$ of $\Delta(\hat p^\ast)$ given the data. The projection is computed by pool-adjacent-violators on either side of each candidate mode, in $O(K^2)$ operations.
+
+\begin{theorem}\label{thm:boot}
+Let $K$ be fixed and $\hat p$ the vector of cell frequencies of $n$ independent observations with cell probabilities $p$. Let $Z\sim N(0,\mathrm{diag}(p)-pp^\top)$.
+\begin{enumerate}
+\item[(a)] For every $p\in\U$ there are $r>0$ and a continuous, positively homogeneous function $\Delta'_p$ such that $\Delta(p+x)=\Delta'_p(x)$ whenever $\|x\|<r$ and $p+x$ is in the simplex. The function $\Delta'_p$ depends on $p$ only through the signs of the adjacent differences $p_{k+1}-p_k$, and $\Delta'_p\equiv0$ if and only if $\mathcal T(p)=\emptyset$.
+\item[(b)] If $p\in\U$ and $\mathcal T(p)=\emptyset$, the probability of rejection tends to zero.
+\item[(c)] If $p\in\U$, $\min_kp_k>0$ and $\mathcal T(p)\ne\emptyset$, then $\sqrt n\,\Delta(\hat p)\dto\Delta'_p(Z)$, and the conditional law of $\sqrt n\,\Delta(\hat p^\ast)$ converges in probability to the same limit. Consequently $\lim_n\Prob(\text{reject})=\min\{\alpha,\Prob(\Delta'_p(Z)>0)\}\le\alpha$.
+\item[(d)] If $p\notin\U$, the probability of rejection tends to one.
+\end{enumerate}
+\end{theorem}
+
+The proof, in the supplement, uses that $\Delta$ is piecewise linear on the simplex. Near a point of $\U$ it is therefore exactly conic, and its local form depends only on which adjacent cells are tied: a valley can only be dug inside a flat stretch, and the size of the valley depends only on the perturbation restricted to that stretch and on whether each end of the stretch is closed by a lower neighbour or open to a higher one. Moment selection recovers the sign pattern of the adjacent differences of $p$ with probability tending to one, and $\bar p_n-p$ is then constant on each flat stretch, which leaves the local form unchanged; the bootstrap is therefore drawn from a point with the same local geometry as $p$, and the two limits coincide. The limit law of $\Delta'_p(Z)$ has an atom at zero, which makes the test conservative when the atom exceeds $1-\alpha$.
+
+Four remarks delimit the result. First, it is pointwise in $p$. Sequences of cell vectors whose adjacent differences shrink at the rate $n^{-1/2}$ are treated as tied, and we have no proof that this is conservative uniformly over $\U$; the simulations of Section~\ref{sec:sim} include exactly flat designs and designs with shallow valleys to show what happens there. Second, it is stated for a fixed number of cells. When the certified width is fine, as for monthly housing costs or for disposable income, $K$ runs to hundreds, adjacent differences are small relative to their standard errors, and moment selection pools long stretches; the test is then conservative, and Section~\ref{sec:sim} measures its size and power at $K\approx1000$. Third, the retained range of cells is set by sample percentiles; it equals its population counterpart with probability tending to one when the population percentiles fall in the interior of cells, and we treat it as fixed. Fourth, the bootstrap draws multinomial samples of size $n_{\mathrm{eff}}$. This matches the first-order behaviour of weighted cell proportions when the design effect is homogeneous across cells; under a complex design a replicate-weight bootstrap should replace it, with the same moment-selected centre.
+
+Finally, the width is estimated from the same sample. With probability tending to one $\hat w_0$ lies in the finite set of lattice-compatible multiples of $w_0$ (Section~\ref{sec:mechanism}), and Theorem~\ref{thm:boot} applies at each of them. It does not cover the data-dependent choice among them; the simulations of Section~\ref{sec:sim} include that choice.

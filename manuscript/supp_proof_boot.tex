@@ -1,0 +1,235 @@
+% Supplement: proof of Theorem \ref{thm:boot}.  No preamble; assumes the main file
+% provides \U, \Prob, \dto, \pto, \R and a `lemma' theorem environment.
+
+
+\providecommand{\Ex}{\mathrm{E}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\one}{\mathbf{1}}
+\providecommand{\dBL}{d_{\mathrm{BL}}}
+\providecommand{\simplex}{\mathcal{S}}
+\providecommand{\sgn}{\operatorname{sgn}}
+
+\section{Proof of Theorem~\ref{thm:boot}}\label{sec:supp-boot}
+
+\subsection{Conventions}\label{sec:supp-conv}
+
+Throughout, $[\ell]=\{1,\dots,\ell\}$, $\simplex$ is the simplex of $\R^K$, $\one=(1,\dots,1)$, $H=\{x\in\R^K:\sum_ix_i=0\}$, and $y(C)=\sum_{i\in C}y_i$ for $y\in\R^\ell$ and $C\subseteq[\ell]$. The \emph{sign pattern} of $p\in\R^K$ is $\sigma(p)=(\sgn(p_{k+1}-p_k))_{k<K}\in\{-1,0,1\}^{K-1}$; $p\in\U$ if and only if no $-1$ precedes a $+1$ in $\sigma(p)$. A \emph{run} of $p$ is a maximal set of consecutive cells on which $p$ is constant; the runs are determined by $\sigma(p)$. If $p\in\U$, the cells at which $p$ attains its maximum form a single run, the \emph{top run}; a run to its left is a \emph{left run}, and the run adjacent to it on the right is higher; a run to its right is a \emph{right run}. Which runs are left, top and right is again determined by $\sigma(p)$. We read the definition of a contact with the convention $p_0=p_{K+1}=-\infty$: $\mathcal T(p)$ is the set of pairs $(k,k+1)$ with $p_k=p_{k+1}$, except the pair forming the top run when the top run has exactly two cells, whether or not that run touches an end of $[K]$.
+
+For $k\in\{1,2\}$ let $\cC_k(\ell)$ be the family of subsets of $[\ell]$ that are unions of at most $k$ sets of consecutive integers, the empty set included; let
+\begin{align*}
+\cC^{\to}_k(\ell)&=\bigl\{L\subseteq[\ell]:\ L\cup\{\ell+1\}\in\cC_k(\ell+1)\bigr\},\\
+\cC^{\leftarrow}_k(\ell)&=\bigl\{R\subseteq[\ell]:\ \{0\}\cup R\in\cC_k(\{0,\dots,\ell\})\bigr\},
+\end{align*}
+where $\cC_k(\{0,\dots,\ell\})$ is the family of unions of at most $k$ sets of consecutive elements of $\{0,\dots,\ell\}$.
+Each of the three families contains $\emptyset$ and $[\ell]$, and $\cC_1\subseteq\cC_2$ in each case. For a pair $\cC=(\cC_1,\cC_2)$ of this kind, $y\in\R^\ell$ and $\mu\in\R$ put
+\[
+E^{\cC}_k(y,\mu)=\max_{C\in\cC_k}\{y(C)-|C|\mu\},\qquad D^{\cC}(y,\mu)=E^{\cC}_2(y,\mu)-E^{\cC}_1(y,\mu)\ge0,
+\]
+\[
+\Delta^{\cC}(y)=\sup_{\mu\in\R}D^{\cC}(y,\mu),
+\]
+and write $\Delta$, $\Delta^{\to}$, $\Delta^{\leftarrow}$ (and $E_k$, $E^{\to}_k$, $E^{\leftarrow}_k$, $D$, $D^{\to}$, $D^{\leftarrow}$) for the three families. If $y\in\simplex$ and $\mu<0$ then every $y_i-\mu$ is positive, both maxima are attained at $[\ell]$ and $D(y,\mu)=0$; so on $\simplex$ the function $\Delta$ is the statistic of the main text and the restriction $\lambda\ge0$ there is void. Since $\Delta^{\leftarrow}(y)=\Delta^{\to}(y_\ell,\dots,y_1)$, every statement about $\Delta^{\to}$ has a mirror image for $\Delta^{\leftarrow}$, which we do not spell out.
+
+The data are $\hat p=N/n$ with $N\sim\mathrm{Mult}(n,p)$; $\Prob^\ast$, $\Ex^\ast$ and $\cL^\ast$ denote conditional probability, expectation and law given $\hat p$. The bootstrap centre $\bar p_n$ is a function of $\hat p$ and $n$, and $\hat p^\ast=N^\ast/n$ with $N^\ast\sim\mathrm{Mult}(n,\bar p_n)$ given $\hat p$. Let $\Sigma(p)=\mathrm{diag}(p)-pp^\top$. The critical value is $c^\ast_n=\inf\{c:\Prob^\ast(\Delta(\hat p^\ast)\le c)\ge1-\alpha\}$, which is $\ge0$ because $\Delta\ge0$, and the test rejects if and only if $\Delta(\hat p)>c^\ast_n$. For laws $P,Q$ on a Euclidean space let $\dBL(P,Q)=\sup\{|\int h\,dP-\int h\,dQ|:\|h\|_\infty+\mathrm{Lip}(h)\le1\}$, which metrises weak convergence. ``The conditional law of $X^\ast_n$ converges in probability to $\cL(X)$'' means $\dBL(\cL^\ast(X^\ast_n),\cL(X))\pto0$.
+
+\subsection{The functional}\label{sec:supp-functional}
+
+\begin{lemma}\label{lem:S-pl}
+Let $\cC$ be one of the three families on $[\ell]$ and, for $y\in\R^\ell$,
+\[
+M(y)=\Bigl\{\frac{y(C)-y(C')}{|C|-|C'|}:\ C,C'\in\cC_2,\ |C|\ne|C'|\Bigr\}.
+\]
+\begin{enumerate}
+\item[(i)] $\Delta^{\cC}(y)=\max_{\mu\in M(y)}D^{\cC}(y,\mu)$.
+\item[(ii)] $\Delta^{\cC}(ty)=t\Delta^{\cC}(y)$ for $t\ge0$, and $\Delta^{\cC}(y+c\one)=\Delta^{\cC}(y)$ for $c\in\R$.
+\item[(iii)] $|\Delta^{\cC}(y)-\Delta^{\cC}(y')|\le2\|y-y'\|_1$.
+\item[(iv)] There are finitely many closed polyhedral cones $Q_1,\dots,Q_M$ with $\bigcup_jQ_j=\R^\ell$ and vectors $g_1,\dots,g_M$ such that $\Delta^{\cC}(y)=g_j^\top y$ for $y\in Q_j$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) For fixed $y$, $E^{\cC}_k(y,\cdot)$ is the upper envelope of the affine functions $\mu\mapsto y(C)-|C|\mu$, $C\in\cC_k$. At a point where its slope changes, two of these functions with different slopes are both active, so the point belongs to $M(y)$; as $\cC_1\subseteq\cC_2$ this holds for $k=1$ and $k=2$. Hence $D^{\cC}(y,\cdot)$ is continuous and affine on each interval between consecutive points of the finite set $M(y)$, on $(-\infty,\min M(y)]$ and on $[\max M(y),\infty)$; $M(y)\ne\emptyset$ because $\emptyset,[\ell]\in\cC_2$. For $\mu<\min_iy_i$ all $y_i-\mu$ are positive, the maximum over both families is at $[\ell]\in\cC_1$, and $D^{\cC}(y,\mu)=0$; for $\mu>\max_iy_i$ it is at $\emptyset\in\cC_1$ and $D^{\cC}(y,\mu)=0$. An affine function on a half-line that vanishes on a sub-half-line vanishes identically, so $D^{\cC}(y,\cdot)=0$ outside $[\min M(y),\max M(y)]$, and the supremum of $D^{\cC}(y,\cdot)$ is attained at a point of $M(y)$.
+
+(ii) $E^{\cC}_k(ty,t\mu)=tE^{\cC}_k(y,\mu)$ for $t>0$ and $E^{\cC}_k(y+c\one,\mu+c)=E^{\cC}_k(y,\mu)$; take suprema over $\mu$.
+
+(iii) $|y(C)-y'(C)|\le\|y-y'\|_1$ gives $|E^{\cC}_k(y,\mu)-E^{\cC}_k(y',\mu)|\le\|y-y'\|_1$, hence $|D^{\cC}(y,\mu)-D^{\cC}(y',\mu)|\le2\|y-y'\|_1$ for every $\mu$.
+
+(iv) By (i), $\Delta^{\cC}(y)=\max_{(C_0,C_0')}\bigl[\max_{C\in\cC_2}\lambda_{C_0,C_0',C}(y)-\max_{C'\in\cC_1}\lambda_{C_0,C_0',C'}(y)\bigr]$, the outer maximum over pairs in $\cC_2$ with $|C_0|\ne|C_0'|$, where $\lambda_{C_0,C_0',C}(y)=y(C)-|C|\,(y(C_0)-y(C_0'))/(|C_0|-|C_0'|)$ is linear in $y$. Writing the bracket as $\max_{C}\min_{C'}(\lambda_{C_0,C_0',C}-\lambda_{C_0,C_0',C'})$ exhibits $\Delta^{\cC}$ as $\max_a\min_b\ell_{a,b}$ for finitely many linear forms $\ell_{a,b}$. The sign vectors $(\sgn(\ell_{a,b}-\ell_{a',b'})(y))_{a,b,a',b'}$ partition $\R^\ell$ into finitely many relatively open polyhedral cones, on each of which the maximising $a$ and minimising $b$ can be chosen fixed, so that $\Delta^{\cC}$ is linear there; by continuity the same linear function represents $\Delta^{\cC}$ on the closure.
+\end{proof}
+
+\begin{lemma}\label{lem:S-zero}
+(i) $\Delta(y)=0$ if and only if $y\in\U$; in particular $\Delta\equiv0$ on $\R^\ell$ if and only if $\ell\le2$.
+(ii) $\Delta^{\to}(y)=0$ if and only if $y_1\le\dots\le y_\ell$; in particular $\Delta^{\to}\equiv0$ on $\R^\ell$ if and only if $\ell=1$.
+\end{lemma}
+
+\begin{proof}
+(i) If $y\in\U$ then for every $\mu$ the set $\{i:y_i>\mu\}$ is a set of consecutive integers, so it belongs to $\cC_1$, and it maximises $y(C)-|C|\mu$ over all $C\subseteq[\ell]$; hence $E_1=E_2$. If $y\notin\U$ there are $i<j<k$ with $y_j<\min(y_i,y_k)$; let $y_j<\mu<\min(y_i,y_k)$ and let $L\in\cC_1$ attain $E_1(y,\mu)$. If $i,k\in L$ then $j\in L$ and $L\setminus\{j\}\in\cC_2$ has value $E_1(y,\mu)+(\mu-y_j)$; if $i\notin L$ then $L\cup\{i\}\in\cC_2$ has value $E_1(y,\mu)+(y_i-\mu)$; likewise for $k$. In each case $D(y,\mu)>0$. Every $y\in\R^\ell$ with $\ell\le2$ is unimodal, and $(1,0,1)$ is not.
+
+(ii) If $y$ is nondecreasing, $\{i:y_i>\mu\}$ is a final segment of $[\ell]$, belongs to $\cC^{\to}_1$, and maximises $y(C)-|C|\mu$ over all $C\subseteq[\ell]$, so $E^{\to}_1=E^{\to}_2$. Otherwise let $y_i>y_{i+1}$, $\mu=(y_i+y_{i+1})/2$, and let $L\in\cC^{\to}_1$ attain $E^{\to}_1(y,\mu)$; $L$ is a final segment of $[\ell]$, possibly empty. If $i\in L$ then $i+1\in L$ and $L\setminus\{i+1\}$, whose union with $\{\ell+1\}$ is a union of two sets of consecutive integers, belongs to $\cC^{\to}_2$ and has value $E^{\to}_1(y,\mu)+(\mu-y_{i+1})$. If $i\notin L$ then $L\cup\{i\}\in\cC^{\to}_2$ has value $E^{\to}_1(y,\mu)+(y_i-\mu)$. In both cases $D^{\to}(y,\mu)>0$. Every $y\in\R^1$ is nondecreasing and $(1,0)$ is not.
+\end{proof}
+
+For $p\in\U$ with distinct values $a_1<\dots<a_s$ let $\delta(p)=\min_{j<s}(a_{j+1}-a_j)$ ($=\infty$ if $s=1$) and $\eta(p)=\delta(p)/(4K)$. To each run $R$ of $p$ attach the function $\Phi_R:\R^R\to[0,\infty)$ given by $\Phi_R=\Delta$ (on $\R^{|R|}$) if $R$ is the top run, $\Phi_R=\Delta^{\to}$ if $R$ is a left run and $\Phi_R=\Delta^{\leftarrow}$ if $R$ is a right run, and define
+\begin{equation}\label{eq:supp-Dprime}
+\Delta'_p(x)=\max_{R}\Phi_R(x_R),\qquad x\in\R^K,
+\end{equation}
+the maximum over the runs of $p$, $x_R$ denoting the restriction of $x$ to $R$ in increasing order of the cells.
+
+\begin{lemma}\label{lem:S-local}
+Let $p\in\U$. For every $x\in\R^K$ with $\|x\|_\infty<\eta(p)$,
+\[
+\Delta(p+x)=\Delta'_p(x).
+\]
+The function $\Delta'_p$ is continuous, positively homogeneous, invariant under $x\mapsto x+c\one$, satisfies $|\Delta'_p(x)-\Delta'_p(x')|\le2\|x-x'\|_1$, is linear on each of finitely many closed polyhedral cones covering $\R^K$, and depends on $p$ only through $\sigma(p)$. The runs $R$ with $\Phi_R\not\equiv0$ are exactly the vertex sets of the connected components of the graph on $[K]$ with edge set $\mathcal T(p)$, so that the maximum in \eqref{eq:supp-Dprime} may be restricted to those components, and $\Delta'_p\equiv0$ if and only if $\mathcal T(p)=\emptyset$.
+\end{lemma}
+
+\begin{proof}
+Write $\eta=\eta(p)$, $\delta=\delta(p)$, $q=p+x$, and for $j\le s$ let $A_j=\{i:p_i>a_j\}$, $B_j=\{i:p_i=a_j\}$, $C_j=\{i:p_i<a_j\}$. Since $p\in\U$, the upper level sets $A_j$ and $A_j\cup B_j$ are sets of consecutive integers; hence for $j<s$, $B_j=B^-_j\cup B^+_j$ with $B^-_j$ the run of $p$ immediately to the left of $A_j$ and $B^+_j$ the run immediately to its right, either possibly empty, and $B^-_j$ is a left run, $B^+_j$ a right run; $A_s=\emptyset$ and $B_s$ is the top run. Every run of $p$ occurs exactly once in this list. Fix $\lambda\in\R$ and put $s_i=q_i-\lambda$.
+
+\emph{Step 1: $|\lambda-a_j|\ge\eta$ for all $j$.} Then $|p_i-\lambda|\ge\eta>|x_i|$ for every $i$, so $s_i$ is nonzero with the sign of $p_i-\lambda$ and $\{i:s_i>0\}=\{i:p_i>\lambda\}$, a set of consecutive integers. It belongs to $\cC_1(K)$ and maximises $\sum_{i\in C}s_i$ over all $C\subseteq[K]$, whence $D(q,\lambda)=0$.
+
+\emph{Step 2: $\lambda=a_j+\mu$ with $|\mu|<\eta$.} Since $2\eta<\delta$, such $j$ is unique. For $i\in A_j$, $s_i\ge\delta-2\eta$; for $i\in C_j$, $s_i\le-(\delta-2\eta)<0$; for $i\in B_j$, $s_i=x_i-\mu$ and $|s_i|<2\eta$. We claim that every $C\in\cC_2(K)$ attaining $E_k(q,\lambda)$, $k\in\{1,2\}$, satisfies $A_j\subseteq C\subseteq A_j\cup B_j$. If $C$ contained a cell of $C_j$, then, since $C_j$ lies outside the set of consecutive integers $A_j\cup B_j$, the smallest or the largest element of $C$ would lie in $C_j$; removing it leaves a member of $\cC_k(K)$ with a strictly larger sum. If some $a\in A_j$ is not in $C$: when $C=\emptyset$, the set $A_j\in\cC_1(K)$ has sum $\ge|A_j|(\delta-2\eta)>0$; otherwise let $G$ be the set of integers strictly between $a$ and $C$ together with $a$ itself, that is, $G=\{a,\dots,\min C-1\}$ if $a<\min C$, $G=\{\max C+1,\dots,a\}$ if $a>\max C$, and $G$ the maximal set of consecutive integers containing $a$ and disjoint from $C$ if $\min C<a<\max C$, in which case $C$ consists of two sets of consecutive integers and $G$ is the gap between them. In every case $C\cup G\in\cC_k(K)$ and $G\subseteq A_j\cup B_j$, since $A_j\cup B_j$ is a set of consecutive integers containing $a$ and $C$. As $a\in G$ and the other elements of $G$ are in $A_j\cup B_j$,
+\[
+\sum_{i\in G}s_i\ \ge\ (\delta-2\eta)-2\eta(|G|-1)\ \ge\ \delta-2K\eta\ \ge\ \delta/2\ >0,
+\]
+contradicting the optimality of $C$. The claim follows.
+
+Suppose $j<s$. A set $C$ with $A_j\subseteq C\subseteq A_j\cup B_j$ is $C=L\cup A_j\cup R$ with $L\subseteq B^-_j$, $R\subseteq B^+_j$. Identify $B^-_j$ with $[\ell^-]$ in increasing order, so that $A_j$ is adjacent to the cell $\ell^-$, and $B^+_j$ with $[\ell^+]$, so that $A_j$ is adjacent to the cell $1$. The maximal sets of consecutive integers composing $C$ are those of $L\cup\{\ell^-+1\}$ and those of $\{0\}\cup R$, glued along $A_j$, so their number is $\nu(L\cup\{\ell^-+1\})+\nu(\{0\}\cup R)-1$, $\nu$ counting the pieces. Hence $C\in\cC_1(K)$ iff $L\in\cC^{\to}_1(\ell^-)$ and $R\in\cC^{\leftarrow}_1(\ell^+)$, and $C\in\cC_2(K)$ iff $L\in\cC^{\to}_2(\ell^-)$ and $R\in\cC^{\leftarrow}_1(\ell^+)$, or $L\in\cC^{\to}_1(\ell^-)$ and $R\in\cC^{\leftarrow}_2(\ell^+)$. Since $s_i=x_i-\mu$ on $B_j$, the claim gives
+\begin{align*}
+E_1(q,\lambda)-s(A_j)&=E^{\to}_1(x_{B^-_j},\mu)+E^{\leftarrow}_1(x_{B^+_j},\mu),\\
+E_2(q,\lambda)-s(A_j)&=\max\bigl\{E^{\to}_2(x_{B^-_j},\mu)+E^{\leftarrow}_1(x_{B^+_j},\mu),\ E^{\to}_1(x_{B^-_j},\mu)+E^{\leftarrow}_2(x_{B^+_j},\mu)\bigr\},
+\end{align*}
+a term with an empty run being read as $0$, and therefore
+\begin{equation}\label{eq:supp-decouple}
+D(q,a_j+\mu)=\max\bigl\{D^{\to}(x_{B^-_j},\mu),\ D^{\leftarrow}(x_{B^+_j},\mu)\bigr\},\qquad |\mu|<\eta.
+\end{equation}
+If $j=s$ then $C\subseteq B_s$, a single run, and $C\in\cC_k(K)$ iff $C\in\cC_k(|B_s|)$ after identification, so $D(q,a_s+\mu)=D(x_{B_s},\mu)$ for $|\mu|<\eta$.
+
+\emph{Step 3.} For any run $R$ and $|\mu|\ge\eta>\|x_R\|_\infty$, all $x_i-\mu$, $i\in R$, have the same sign, the maximum of $x_R(C)-|C|\mu$ over all $C\subseteq R$ is attained at $\emptyset$ or at $R$, both in the first family, and the corresponding $D$-function vanishes. Hence $\Phi_R(x_R)=\sup_{|\mu|<\eta}D^{(R)}(x_R,\mu)$, where $D^{(R)}$ is $D$, $D^{\to}$ or $D^{\leftarrow}$ according to the type of $R$.
+
+Combining the three steps, $\lambda\mapsto D(q,\lambda)$ vanishes outside the disjoint intervals $(a_j-\eta,a_j+\eta)$, and on the $j$th of these it is the maximum of the $D$-functions of the runs at level $a_j$; taking the supremum over $\lambda$ gives $\Delta(q)=\max_R\Phi_R(x_R)$.
+
+The listed properties of $\Delta'_p$ follow from Lemma~\ref{lem:S-pl}: a maximum of finitely many functions that are continuous, positively homogeneous, invariant under constant shifts, $2$-Lipschitz for $\|\cdot\|_1$ and piecewise linear on finite fans of polyhedral cones has the same properties (the common refinement of the fans is a finite fan). The runs and their types are functions of $\sigma(p)$, so is $\Delta'_p$. By Lemma~\ref{lem:S-zero}, $\Phi_R\not\equiv0$ if and only if $|R|\ge2$ and $R$ is not a top run of exactly two cells, which is exactly the condition that $R$ be the vertex set of a component of $\mathcal T(p)$ with at least one edge; and $\Delta'_p\equiv0$ iff every $\Phi_R\equiv0$ iff $\mathcal T(p)=\emptyset$.
+\end{proof}
+
+\begin{proof}[Proof of (a)]
+Take $r=\eta(p)$, so that $\|x\|<r$ implies $\|x\|_\infty<\eta(p)$ for the Euclidean norm, and $\Delta'_p$ as in \eqref{eq:supp-Dprime}. Lemma~\ref{lem:S-local} gives $\Delta(p+x)=\Delta'_p(x)$ for all such $x$, in particular for those with $p+x\in\simplex$, together with continuity, positive homogeneity and $\Delta'_p\equiv0$ when $\mathcal T(p)=\emptyset$. The lemma also shows what $\Delta'_p$ depends on: the components of $\mathcal T(p)$ and, for each component, whether it is a left run, the top run or a right run of $p$. The last piece of information is not a function of $\mathcal T(p)$ alone ; it is a function of $\sigma(p)$. Lemma~\ref{lem:S-zero} makes the remark following the definition of a contact precise: a flat stretch with a higher neighbour on one side lets a perturbation dig a valley as soon as it has two cells ($\Delta^{\to}(1,0)>0$), a top plateau does so as soon as it has three ($\Delta(1,0,1)>0$), and a top plateau of two cells never does ($\Delta\equiv0$ on $\R^2$), whichever end of the cell range it touches.
+\end{proof}
+
+\subsection{Proof of (b)}
+
+Let $p\in\U$ with $\mathcal T(p)=\emptyset$. By the law of large numbers $\Prob(\|\hat p-p\|_\infty<\eta(p))\to1$, and on this event Lemma~\ref{lem:S-local} gives $\Delta(\hat p)=\Delta'_p(\hat p-p)=0$. Since $c^\ast_n\ge0$, rejection requires $\Delta(\hat p)>0$, so $\Prob(\text{reject})\le\Prob(\|\hat p-p\|_\infty\ge\eta(p))\to0$. \qed
+
+\subsection{Proof of (c)}
+
+\begin{lemma}[tie recovery]\label{lem:S-ties}
+Let $p\in\U$, $\eta=\eta(p)$, and let $A_n$ be the event that the maximal runs of pooled cells coincide with the runs of $p$. Let $B_n=A_n\cap\{\|\hat p-p\|_\infty<\eta/2\}$. Then $\Prob(B_n)\to1$, and on $B_n$:
+\begin{enumerate}
+\item[(i)] the pooled vector $\tilde p_n$ satisfies $\tilde p_{n,i}=|R|^{-1}\sum_{i'\in R}\hat p_{i'}$ for $i$ in the run $R$ of $p$, $\tilde p_n\in\simplex$, and $\|\tilde p_n-p\|_\infty\le\|\hat p-p\|_\infty$;
+\item[(ii)] $\sigma(\tilde p_n)=\sigma(p)$; hence $\tilde p_n\in\U$, $\mathcal T(\tilde p_n)=\mathcal T(p)$, and $\bar p_n=\tilde p_n$;
+\item[(iii)] $u_n=\bar p_n-p$ is constant on each run of $p$ and $\|u_n\|_\infty<\eta/2$, and consequently
+\[
+\Delta(\bar p_n+x)=\Delta'_p(x)\qquad\text{for all $x\in\R^K$ with }\|x\|_\infty<\eta/2 .
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The pair $(k,k+1)$ is pooled iff $|d_k|\le\tau_k$, where $d_k=\hat p_{k+1}-\hat p_k$ and $\tau_k=\kappa_n\{(\hat p_k+\hat p_{k+1})/n\}^{1/2}$. Suppose $p_k=p_{k+1}$. If $p_k=0$ then $\hat p_k=\hat p_{k+1}=0$ almost surely and the pair is pooled. If $p_k>0$, then $\sqrt n\,d_k\dto Z_{k+1}-Z_k$ by the central limit theorem while $\sqrt n\,\tau_k=\kappa_n(\hat p_k+\hat p_{k+1})^{1/2}\pto\infty$, so for every $M$,
+\begin{align*}
+\limsup_n\Prob(|d_k|>\tau_k)&\le\limsup_n\bigl[\Prob(\sqrt n|d_k|>M)+\Prob(\sqrt n\,\tau_k\le M)\bigr]\\
+&\le\Prob(|Z_{k+1}-Z_k|\ge M),
+\end{align*}
+which tends to $0$ as $M\to\infty$. Suppose $p_k\ne p_{k+1}$. Then $|d_k|\pto|p_{k+1}-p_k|\ge\delta(p)>0$ while $\tau_k\le\kappa_n/\sqrt n\to0$, so $\Prob(|d_k|\le\tau_k)\to0$. The pooled runs are the maximal runs of consecutive pooled pairs, so $A_n$ is the intersection over $k<K$ of the events $\{(k,k+1)\text{ pooled}\}\triangle\{p_k\ne p_{k+1}\}$, each of probability tending to one; with the law of large numbers, $\Prob(B_n)\to1$.
+
+(i) On $A_n$ the averaging is over the runs of $p$. Averaging preserves nonnegativity and the total mass, so $\tilde p_n\in\simplex$; since $p$ is constant on each run, $\tilde p_{n,i}-p_i$ is the average of $\hat p_{i'}-p_{i'}$ over the run containing $i$, and the sup-norm bound follows.
+
+(ii) Adjacent cells in the same run of $p$ receive the same value. Adjacent cells $k,k+1$ in different runs satisfy $|p_{k+1}-p_k|\ge\delta(p)\ge4K\eta>\eta$ and $|(\tilde p_{n,k+1}-\tilde p_{n,k})-(p_{k+1}-p_k)|\le2\|\tilde p_n-p\|_\infty<\eta$, so $\tilde p_{n,k+1}-\tilde p_{n,k}$ has the sign of $p_{k+1}-p_k$. Thus $\sigma(\tilde p_n)=\sigma(p)$. Unimodality is a property of the sign pattern, so $\tilde p_n\in\U$, and $\mathcal T$ is a function of the sign pattern (the runs and the top run are), so $\mathcal T(\tilde p_n)=\mathcal T(p)$. The least-squares projection of a point of $\U$ onto $\U$ is that point. The implemented projection computes, for each candidate mode $m$, the isotonic fits of $\tilde p_n$ on $\{1,\dots,m-1\}$ and on $\{m+1,\dots,K\}$, sets the value at $m$ to the maximum of $\tilde p_{n,m}$ and the two adjacent fitted values, and returns the fit with the smallest residual sum of squares, clipped at zero and renormalised. For $\tilde p_n\in\U$ and $m$ a mode of $\tilde p_n$, the fit is $\tilde p_n$ itself with residual zero; a residual of zero identifies the fit, and clipping and renormalising a vector of $\simplex$ leave it unchanged. Hence $\bar p_n=\tilde p_n$.
+
+(iii) By (i) and (ii), $u_n=\tilde p_n-p$ is constant on each run of $p$ and $\|u_n\|_\infty\le\|\hat p-p\|_\infty<\eta/2$. If $\|x\|_\infty<\eta/2$ then $\|u_n+x\|_\infty<\eta$, and Lemma~\ref{lem:S-local} gives $\Delta(\bar p_n+x)=\Delta(p+u_n+x)=\Delta'_p(u_n+x)=\max_R\Phi_R(u_{n,R}+x_R)=\max_R\Phi_R(x_R)=\Delta'_p(x)$, the fourth equality because $u_{n,R}$ is a constant vector and each $\Phi_R$ is invariant under constant shifts (Lemma~\ref{lem:S-pl}(ii)).
+\end{proof}
+
+Part (iii) is the uniform-radius statement: the bootstrap centre is not merely close to $p$ with the same contacts, it differs from $p$ by a vector that is constant on the runs of $p$, and such a difference is invisible to the local function. Note also that on $B_n$ the projection step is the identity; the only role of the projection is to guarantee $\bar p_n\in\U$ on the complement of $B_n$, which matters in (d).
+
+\begin{lemma}[conditional convergence]\label{lem:S-cond}
+\begin{enumerate}
+\item[(i)] Let $\pi_n$ be $\simplex$-valued functions of $\hat p$ with $\pi_n\pto p$, and given $\hat p$ let $\hat p^\ast_n=N^\ast_n/n$ with $N^\ast_n\sim\mathrm{Mult}(n,\pi_n)$. Then
+\[
+\dBL\bigl(\cL^\ast(\sqrt n(\hat p^\ast_n-\pi_n)),\,N(0,\Sigma(p))\bigr)\pto0 .
+\]
+\item[(ii)] If $\dBL(\cL^\ast(W^\ast_n),\cL(W))\pto0$ for random vectors $W^\ast_n$, $W$ in $\R^K$, and $g:\R^K\to\R$ is continuous, then $\dBL(\cL^\ast(g(W^\ast_n)),\cL(g(W)))\pto0$.
+\item[(iii)] If $X^\ast_n,Y^\ast_n$ are real random variables with $\Prob^\ast(X^\ast_n\ne Y^\ast_n)\pto0$, then $\dBL(\cL^\ast(X^\ast_n),\allowbreak\cL^\ast(Y^\ast_n))\pto0$.
+\item[(iv)] If $G_n$ are random laws on $\R$ and $F$ is a law on $\R$ with $\dBL(G_n,F)\pto0$, then $G_n((-\infty,c])\pto F((-\infty,c])$ at every continuity point $c$ of $F$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Given a subsequence, extract a further subsequence along which $\pi_n\to p$ almost surely, and fix an $\omega$ in the corresponding event. Along it, $\cL^\ast(\sqrt n(\hat p^\ast_n-\pi_n))$ is the law of $n^{-1/2}\sum_{i\le n}(\xi_{ni}-\pi_n)$ with $\xi_{ni}$ i.i.d.\ $\mathrm{Mult}(1,\pi_n)$, $\pi_n=\pi_n(\omega)$ deterministic. The summands are centred, bounded by $\sqrt2/\sqrt n$ in Euclidean norm, with covariance $\Sigma(\pi_n)\to\Sigma(p)$; the Lindeberg condition holds trivially and the Lindeberg--Feller theorem with the Cram\'er--Wold device gives weak convergence to $N(0,\Sigma(p))$, hence $\dBL\to0$. Almost sure convergence along a further subsequence of every subsequence is convergence in probability.
+
+(ii) By the same subsequence device it suffices to note that $\dBL(P_n,P)\to0$ and $g$ continuous imply $\dBL(P_n\circ g^{-1},P\circ g^{-1})\to0$, which is the continuous mapping theorem.
+
+(iii) For $\|h\|_\infty\le1$, $|\Ex^\ast h(X^\ast_n)-\Ex^\ast h(Y^\ast_n)|\le2\Prob^\ast(X^\ast_n\ne Y^\ast_n)$.
+
+(iv) For $\varepsilon>0$ let $h^\pm_\varepsilon$ be Lipschitz with $\one_{(-\infty,c-\varepsilon]}\le h^-_\varepsilon\le\one_{(-\infty,c]}\le h^+_\varepsilon\le\one_{(-\infty,c+\varepsilon]}$. Then $\int h^\pm_\varepsilon dG_n\pto\int h^\pm_\varepsilon dF$, so with probability tending to one $F(c-\varepsilon)-\varepsilon\le G_n((-\infty,c])\le F(c+\varepsilon)+\varepsilon$; let $\varepsilon\downarrow0$ and use continuity of $F$ at $c$.
+\end{proof}
+
+\begin{lemma}[the limit law]\label{lem:S-law}
+Let $p\in\U$ with $\min_ip_i>0$ and $\mathcal T(p)\ne\emptyset$, let $Z\sim N(0,\Sigma(p))$, and let $F$ be the distribution function of $\Delta'_p(Z)$. Then:
+\begin{enumerate}
+\item[(i)] $\Delta'_p(Z)$ has no atom in $(0,\infty)$, so $F$ is continuous on $(0,\infty)$;
+\item[(ii)] $F(c)>F(q)$ whenever $0\le q<c$; in particular $\Prob(\Delta'_p(Z)>0)>0$;
+\item[(iii)] with $N_0=\{x\in H:\Delta'_p(x)=0\}$, closed in $H$, $\Prob(Z\in\partial_HN_0)=0$, $\partial_H$ denoting the boundary relative to $H$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For $v\in\R^K$, $v^\top\Sigma(p)v=\sum_ip_iv_i^2-(\sum_ip_iv_i)^2$ is the variance of $v_J$ for $J\sim\mathrm{Mult}(1,p)$, which vanishes iff $v$ is constant on $\{i:p_i>0\}=[K]$. So the null space of $\Sigma(p)$ is $\R\one$, $Z\in H$ almost surely, and $Z$ has an everywhere positive density with respect to Lebesgue measure on $H$.
+
+(i) Let $Q_1,\dots,Q_M$ and $g_1,\dots,g_M$ be as in Lemma~\ref{lem:S-pl}(iv) for $\Delta'_p$ (Lemma~\ref{lem:S-local}). If $Q_j\cap H$ has dimension less than $K-1$ it is $Z$-null. Otherwise, on $\{Z\in Q_j\}$, $\Delta'_p(Z)=g_j^\top Z$, and $g_j^\top Z$ is either degenerate at $0$ (if $g_j\in\R\one$) or normal with positive variance; in both cases $\Prob(g_j^\top Z\in N)=0$ for every Lebesgue-null $N\subseteq(0,\infty)$. Summing over $j$, $\Prob(\Delta'_p(Z)\in N)=0$.
+
+(ii) By Lemma~\ref{lem:S-local} there is $x_0$ with $\Delta'_p(x_0)>0$; by shift invariance and homogeneity we may take $x_0\in H$ and $\Delta'_p(x_0)=1$. The set $\{x\in H:q<\Delta'_p(x)<c\}$ is open in $H$ and contains $tx_0$ for $q<t<c$, so it has positive $Z$-probability.
+
+(iii) $N_0$ is the intersection with $H$ of the finite union of the closed polyhedral cones $Q_j\cap\{g_j^\top x=0\}$. The boundary relative to $H$ of a finite union is contained in the union of the boundaries, and the boundary relative to $H$ of a polyhedral cone intersected with $H$ is contained in finitely many hyperplanes of $H$ (in the cone itself, contained in a hyperplane of $H$, when it is not of full dimension in $H$). Hyperplanes of $H$ are $Z$-null.
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+Let $p\in\U$ with $\mathcal T(p)\ne\emptyset$ and $\min_ip_i>0$ , $\eta=\eta(p)$, $W_n=\sqrt n(\hat p-p)$ and $T_n=\sqrt n\,\Delta(\hat p)$. By the multinomial central limit theorem $W_n\dto Z$, and $W_n$, $Z$ take values in $H$.
+
+\emph{The statistic.} On $\{\|\hat p-p\|_\infty<\eta\}$, whose probability tends to one, Lemma~\ref{lem:S-local} and homogeneity give $T_n=\sqrt n\,\Delta'_p(\hat p-p)=\Delta'_p(W_n)$. Since $\Delta'_p$ is continuous, $\Delta'_p(W_n)\dto\Delta'_p(Z)$, and $\Prob(T_n\ne\Delta'_p(W_n))\to0$, so $T_n\dto\Delta'_p(Z)$.
+
+\emph{The bootstrap.} Let $W^\ast_n=\sqrt n(\hat p^\ast-\bar p_n)$ and $X^\ast_n=\sqrt n\,\Delta(\hat p^\ast)$. On $B_n$ of Lemma~\ref{lem:S-ties}, $\|\bar p_n-p\|_\infty\le\|\hat p-p\|_\infty$, so $\bar p_n\pto p$, and Lemma~\ref{lem:S-cond}(i) with $\pi_n=\bar p_n$ gives $\dBL(\cL^\ast(W^\ast_n),\cL(Z))\pto0$. On $B_n\cap\{\|\hat p^\ast-\bar p_n\|_\infty<\eta/2\}$, Lemma~\ref{lem:S-ties}(iii) and homogeneity give $X^\ast_n=\Delta'_p(W^\ast_n)$. By Chebyshev's inequality, $\Prob^\ast(\|\hat p^\ast-\bar p_n\|_\infty\ge\eta/2)\le\sum_j\mathrm{Var}^\ast(\hat p^\ast_j)/(\eta/2)^2\le4K/(n\eta^2)$, so $\Prob^\ast(X^\ast_n\ne\Delta'_p(W^\ast_n))\le\one_{B_n^c}+4K/(n\eta^2)\pto0$. Lemma~\ref{lem:S-cond}(ii),(iii) give $\dBL(\cL^\ast(X^\ast_n),\cL(\Delta'_p(Z)))\pto0$, which is the second assertion of (c).
+
+\emph{Size.} Let $F$ be the distribution function of $\Delta'_p(Z)$, $q=\inf\{t:F(t)\ge1-\alpha\}$ its $(1-\alpha)$ quantile, $G_n=\cL^\ast(X^\ast_n)$ and $c_n=\inf\{t:G_n((-\infty,t])\ge1-\alpha\}=\sqrt n\,c^\ast_n$. The test rejects iff $T_n>c_n$. By Lemma~\ref{lem:S-law}(i), every $c>0$ is a continuity point of $F$; by Lemma~\ref{lem:S-cond}(iv), $G_n((-\infty,c])\pto F(c)$ for every $c>0$. If $F(c)<1-\alpha$ then $G_n((-\infty,c])<1-\alpha$ with probability tending to one, and on that event $c_n\ge c$; if $F(c)>1-\alpha$ then likewise $c_n\le c$ with probability tending to one.
+
+Case $q>0$. $F$ is continuous at $q$, so $F(q)=1-\alpha$. For $0<c<q$, $F(c)<1-\alpha$ by definition of $q$; for $c>q$, $F(c)>F(q)=1-\alpha$ by Lemma~\ref{lem:S-law}(ii). Hence $c_n\pto q$, so $T_n-c_n\dto\Delta'_p(Z)-q$, and since $\Prob(\Delta'_p(Z)=q)=0$,
+\[
+\Prob(\text{reject})=\Prob(T_n-c_n>0)\to\Prob(\Delta'_p(Z)>q)=1-F(q)=\alpha .
+\]
+
+Case $q=0$, that is $F(0)=\Prob(\Delta'_p(Z)=0)\ge1-\alpha$. Since $c_n\ge0$, $\Prob(\text{reject})\le\Prob(T_n>0)$. Now $\Prob(T_n=0)=\Prob(W_n\in N_0)+o(1)$ with $N_0$ as in Lemma~\ref{lem:S-law}(iii), and $W_n\dto Z$ as random elements of $H$ with $\Prob(Z\in\partial_HN_0)=0$, so by the portmanteau theorem $\Prob(T_n=0)\to\Prob(Z\in N_0)=F(0)$. Thus $\limsup_n\Prob(\text{reject})\le1-F(0)\le\alpha$. Conversely, for every $c>0$, $F(c)>F(0)\ge1-\alpha$ by Lemma~\ref{lem:S-law}(ii), so $c_n\le c$ with probability tending to one and $\liminf_n\Prob(\text{reject})\ge\lim_n\Prob(T_n>c)=1-F(c)$; letting $c\downarrow0$ and using right-continuity, $\Prob(\text{reject})\to1-F(0)$.
+
+In both cases $\limsup_n\Prob(\text{reject})\le\alpha$. The law of $\Delta'_p(Z)$ is continuous at $q$ exactly when $q>0$ (when $q=0$ it has an atom of mass $F(0)\ge1-\alpha>0$ at $q$), and then the limit equals $\alpha$. Altogether,
+\[
+\lim_n\Prob(\text{reject})=\min\bigl\{\alpha,\ \Prob(\Delta'_p(Z)>0)\bigr\},
+\]
+which is strictly less than $\alpha$ precisely when the atom at zero exceeds $1-\alpha$.
+\end{proof}
+
+\subsection{Proof of (d)}
+
+Let $p\notin\U$. By Lemma~\ref{lem:S-pl}(iii) $\Delta$ is continuous on $\simplex$, so $\Delta(\hat p)\to\Delta(p)$ almost surely by the strong law of large numbers, and $\Delta(p)>0$ by Lemma~\ref{lem:S-zero}(i). The centre $\bar p_n$ lies in $\U\cap\simplex$ by construction (the projection returns isotonic fits on either side of a mode, clipped at zero and renormalised, which is a unimodal vector of $\simplex$), so $\Delta(\bar p_n)=0$ and, by Lemma~\ref{lem:S-pl}(iii),
+\[
+\Delta(\hat p^\ast)\le2\|\hat p^\ast-\bar p_n\|_1,\qquad
+\Ex^\ast\|\hat p^\ast-\bar p_n\|_1\le\sum_{j=1}^K(\bar p_{n,j}/n)^{1/2}\le(K/n)^{1/2},
+\]
+the middle step because $\Ex^\ast|\hat p^\ast_j-\bar p_{n,j}|\le(\mathrm{Var}^\ast\hat p^\ast_j)^{1/2}$, the last by the Cauchy--Schwarz inequality. With $b_n=2(K/n)^{1/2}/\alpha$, Markov's inequality gives $\Prob^\ast(\Delta(\hat p^\ast)>b_n)\le\alpha$, hence $c^\ast_n\le b_n$, a deterministic bound tending to zero. Therefore $\Prob(\text{reject})\ge\Prob(\Delta(\hat p)>b_n)\to1$. \qed
+
+\subsection{Remarks}
+
+\begin{remark}[Monte Carlo approximation]\label{rem:supp-mc}
+The implemented test draws $\Delta^\ast_1,\dots,\Delta^\ast_B$ independently from $\cL^\ast(\Delta(\hat p^\ast))$ and rejects when $(1+\#\{b:\Delta^\ast_b\ge\Delta(\hat p)\})/(B+1)\le\alpha$. Parts (b) and (d) hold verbatim for every fixed $B$ with $\alpha(B+1)\ge1$: under (b), $\Delta(\hat p)=0$ with probability tending to one and then every $\Delta^\ast_b\ge\Delta(\hat p)$, so the Monte Carlo $p$-value equals one; under (d), $\Prob^\ast(\Delta^\ast_b\ge\Delta(\hat p))\le b_n\alpha/\Delta(\hat p)\pto0$ for each $b$, so the $p$-value tends to $1/(B+1)\le\alpha$ in probability. Under (c), the test rejects only when $\Delta(\hat p)>0$, and the arguments above show that $(T_n,\sqrt n\Delta^\ast_1,\dots,\sqrt n\Delta^\ast_B)$ converges in law to $(Y_0,\dots,Y_B)$ i.i.d.\ with distribution function $F$, with $\Prob(T_n=0)\to F(0)$; the limiting rejection probability is $\Prob(Y_0>0,\ \#\{b\ge1:Y_b\ge Y_0\}\le\alpha(B+1)-1)$. For exchangeable $Y_0,\dots,Y_B$ at most $m+1$ indices $i$ satisfy $\#\{b\ne i:Y_b\ge Y_i\}\le m$, so this probability is at most $(\lfloor\alpha(B+1)\rfloor)/(B+1)\le\alpha$.
+\end{remark}
+
+\begin{remark}[On the statement of the theorem]\label{rem:supp-statement}
+The local function $\Delta'_p$ depends on $p$ through the sign pattern $\sigma(p)$ and not through the set $\mathcal T(p)$ alone. Let $p=(1,2,2,2,3)/10$ and $p'=(1,3,3,3,2)/12$; both have $\mathcal T=\{(2,3),(3,4)\}$. For $x=\varepsilon(0,-\tfrac12,1,-\tfrac12,0)$ with $\varepsilon>0$ small, $p+x$ has the valley $p_3+\varepsilon>p_4-\varepsilon/2<p_5$, so that $\Delta'_p(x)=\Delta^{\to}(-\tfrac12,1,-\tfrac12)\varepsilon=3\varepsilon/4>0$, whereas $p'+x$ is unimodal and $\Delta'_{p'}(x)=0$. What matters is whether each flat stretch is the top plateau or is open to a higher neighbour on one side, and this is determined by $\sigma(p)$. The condition $\min_ip_i>0$ in (c) is used only to give $Z$ a positive density on $H$, which excludes atoms of $\Delta'_p(Z)$ in $(0,\infty)$; under the null it holds whenever the first and last retained cells carry positive probability, since a unimodal vector vanishing at an interior cell vanishes on a whole end segment. Finally, the supremum over $\lambda$ in the definition of $\Delta$ is a maximum over the finite set $M(p)$ of Lemma~\ref{lem:S-pl}(i), which contains, and is in general larger than, the set of cell probabilities.
+\end{remark}

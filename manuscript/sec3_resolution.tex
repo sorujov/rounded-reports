@@ -1,0 +1,49 @@
+\section{What the reports identify about the latent distribution}\label{sec:resolution}
+
+\subsection{Cells at a lattice-compatible width}
+
+Let $A\subseteq\lad$ be the set of levels in use. A width $w$ is \emph{lattice-compatible} if every $\ell\in A$ divides $w$, and the cells are $C_k=[kw-w/2,\,kw+w/2)$, $k\in\Z$. Write $P_k=\int_{C_k}g$ for the latent cell probabilities and $h_\ell=g\,\pi_\ell$, so that $g=\sum_\ell h_\ell$.
+
+Rounding to a level that divides $w$ keeps a report close to the latent amount, but it can still carry mass across a cell boundary. Whether it does depends on the parity of $w/\ell$. If $w/\ell$ is odd, the boundary $b=kw+w/2$ is congruent to $\ell/2$ modulo $\ell$, so it separates two rounding intervals of level $\ell$ and nothing crosses it. If $w/\ell$ is even, $b$ is itself a multiple of $\ell$, and every latent amount within $\ell/2$ of $b$ is reported exactly at $b$. No choice of grid avoids this for all levels at once, because levels of different $2$-adic order cannot all have odd ratio to the same width. The remedy is to split reports that fall exactly on a cell boundary equally between the two adjacent cells. Let $q_k$ be the probability of cell $C_k$ for the reports, computed with this convention.
+
+\begin{lemma}\label{lem:split}
+Let $w$ be lattice-compatible and suppose each $h_\ell$, $\ell\in A$, is absolutely continuous. Then, whatever the dependence of $\pi$ on income,
+\[
+|q_k-P_k|\;\le\;\sum_{\ell\in A:\ w/\ell\ \mathrm{even}}\frac{\ell^2}{8}\Bigl(\sup_{|x-b_k^-|\le\ell/2}|h_\ell'(x)|+\sup_{|x-b_k^+|\le\ell/2}|h_\ell'(x)|\Bigr),
+\]
+where $b_k^\pm=kw\pm w/2$ are the boundaries of $C_k$. In particular $q_k=P_k$ when $w/\ell$ is odd for every active level.
+\end{lemma}
+
+\begin{proof}
+Reports at level $\ell$ never leave the cell of the latent amount except at a boundary $b$ that is a multiple of $\ell$. Latent amounts in $[b-\ell/2,b+\ell/2)$ are then reported at $b$, and half of that mass is assigned to each side. The error at $b$ for the cell on its left is therefore $\tfrac12\int_0^{\ell/2}\{h_\ell(b+t)-h_\ell(b-t)\}\,dt$, whose absolute value is at most $\tfrac12\sup|h_\ell'|\int_0^{\ell/2}2t\,dt=\tfrac{\ell^2}{8}\sup|h_\ell'|$. Each cell has two boundaries.
+\end{proof}
+
+Without the splitting convention the error is of first order, $\tfrac12\ell\,h_\ell(b)$ at each boundary, and at $w_0=\$50{,}000$ with an active level of \$25{,}000 it is a sizeable fraction of a cell. With the convention it is of second order in the level and vanishes wherever the density is flat. Levels that are in use but excluded from $A$ because their probability is below $\delta$ contribute a first-order error proportional to that probability; this is what the cut-off $\delta$ of Section~\ref{sec:mechanism} has to control.
+
+The least common multiple $w_0=\lcm A$ is the smallest lattice-compatible width. It is a statement about the data and not about any test: it is the resolution available to an analyst who is unwilling to model how the level depends on income. A width that is lattice-compatible cannot be replaced by a merely coarse one. If reports pile up at multiples of \$10{,}000 and of \$25{,}000, cells of width \$10{,}000 contain two multiples of \$25{,}000 in some cases and none in others, and the cell vector inherits a saw-tooth that has nothing to do with $g$. Any multiple of a lattice-compatible width is again lattice-compatible, so the errors in choosing the width are not symmetric: a width that is too coarse costs resolution, and one that is too fine reintroduces the saw-tooth.
+
+\subsection{Binning preserves unimodality}
+
+The next lemma turns a statement about the latent density into one about a probability vector. It is the two-cell case of the variation-diminishing property of the indicator kernel \citep{Karlin1968}; we give a direct proof.
+
+\begin{lemma}\label{lem:binning}
+Let $g$ be unimodal with mode $M$, that is, non-decreasing on $(-\infty,M]$ and non-increasing on $[M,\infty)$, and let $w>0$. Then $(P_k)$ is a unimodal sequence for every width $w$ and every position of the grid.
+\end{lemma}
+
+\begin{proof}
+Let $m$ be the index with $M\in C_m$ and $t=(mw+w/2)-M\in(0,w]$. For $k\le m-2$ the cells $C_k$ and $C_{k+1}=C_k+w$ lie to the left of $M$, where $g$ is non-decreasing, so $P_k\le P_{k+1}$; symmetrically $P_k\ge P_{k+1}$ for $k\ge m+1$. It remains to show that $P_m\ge\min(P_{m-1},P_{m+1})$. The interval $[M-w,M]$ is the translate of $C_{m-1}=[M+t-2w,M+t-w)$ by $w-t\ge0$ to the right, and $g$ is non-decreasing to the left of $M$; hence $\int_{M-w}^Mg\ge P_{m-1}$, and since the average of a non-decreasing function over the right-hand part of an interval is at least its average over the whole,
+\[
+\int_{M-(w-t)}^{M}g\;\ge\;\frac{w-t}{w}\int_{M-w}^{M}g\;\ge\;\frac{w-t}{w}\,P_{m-1}.
+\]
+Symmetrically $\int_M^{M+t}g\ge (t/w)P_{m+1}$. Adding, $P_m\ge\frac{w-t}{w}P_{m-1}+\frac twP_{m+1}\ge\min(P_{m-1},P_{m+1})$.
+\end{proof}
+
+Together, Lemmas~\ref{lem:split} and~\ref{lem:binning} say that at a lattice-compatible width a unimodal latent density produces a reported cell vector that is unimodal up to the second-order boundary term. The converse fails: a unimodal cell vector is consistent with a latent density that has a valley inside a single cell. A test at width $w$ therefore answers the question whether the latent distribution has a departure from unimodality that is visible at resolution $w$, and no more.
+
+\subsection{Where a valley is, and the Lorenz curve}
+
+When the cell vector is not unimodal, let $j_1<i_2$ be the last cell of the first modal block and the first cell of the second (Section~\ref{sec:test}), so that some cell $m$ between them has $P_m<\min(P_{j_1},P_{i_2})$. A density whose average over $C_{j_1}$ exceeds its average over $C_m$ takes at some point $a\in C_{j_1}$ a value larger than it takes at some point $b\in C_m$, and likewise for a point $c\in C_{i_2}$; the density therefore has an essential local minimum in $(a,c)$. Every latent density consistent with the cell probabilities thus has a local minimum in $(c_{j_1}-w/2,\,c_{i_2}+w/2)$, where $c_k=kw$, and the population share below it lies in
+\begin{equation}\label{eq:pstar}
+p^\ast\in\Bigl[\,\textstyle\sum_{k<j_1}P_k,\ \sum_{k\le i_2}P_k\Bigr].
+\end{equation}
+This interval does not shrink as $n$ grows: it is an outer bound on the identified set, and its width measures what the rounding costs. For readers who work with Lorenz curves rather than densities we note that $L''(p)=1/\{\mu f(Q(p))\}$, where $L$ is the Lorenz curve, $\mu$ the mean and $Q$ the quantile function \citep{Parzen1979}; a local minimum of the density is therefore a local maximum of the curvature of the Lorenz curve, and \eqref{eq:pstar} locates it on the percentile scale.

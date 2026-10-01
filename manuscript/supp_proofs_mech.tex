@@ -1,0 +1,173 @@
+% Supplement: proofs for Sections \ref{sec:mechanism}, \ref{sec:resolution} and \ref{sec:inversion}.
+% No preamble; uses the macros of main.tex.
+
+\section{Proofs for the reporting mechanism}\label{supp:mech}
+
+Throughout, $\lad=\{\ell_1<\cdots<\ell_J\}$ with $\ell_1=1$, $W=\lcm\lad$, and for $\ell\in\lad$ we write $m=m_\ell=W/\ell$. For $d\mid W$ the pattern is $S(d)=\{\ell\in\lad:\ell\mid d\}$ and $D_S=\{d\mid W:S(d)=S\}$. We use repeatedly that for $k\in\Z$, $\gcd(k,m)=\gcd(k\bmod m,m)$, and that for $e\mid m$ the number of residues $r\in\{0,\dots,m-1\}$ with $\gcd(r,m)=e$ is $\varphi(m/e)$ (the residue $r=0$ counts for $e=m$).
+
+\subsection{Proof of Lemma~\ref{lem:fourier}}
+
+Let $f_\ell$ be the conditional density of $X$ given $L=\ell$, $\phi_\ell(s)=\int e^{isx}f_\ell(x)\,dx$, and $f^W_\ell(u)=\sum_{j\in\Z}f_\ell(u+jW)$, $u\in[0,W)$, its $W$-periodization, assumed in $L^2[0,W)$. Identify $[0,W)$ with the circle $\mathbb T=\R/W\Z$.
+
+Fix a residue $r\in\{0,\dots,m-1\}$. Since $K_\ell=\lfloor x/\ell+\tfrac12\rfloor$, the event $K_\ell\equiv r\pmod m$ is
+\[
+\bigcup_{j\in\Z}\bigl\{x:\ r+jm\le x/\ell+\tfrac12<r+jm+1\bigr\}
+=\bigcup_{j\in\Z}\bigl[\ell r-\tfrac\ell2+jW,\ \ell r+\tfrac\ell2+jW\bigr)
+= I_r+W\Z,
+\]
+where $I_r=[\ell r-\ell/2,\ell r+\ell/2)$ is an arc of length $\ell$ on $\mathbb T$ (for $r=0$ it wraps around $0$). Hence, by Tonelli,
+\[
+\Prob(K_\ell\equiv r\mid L=\ell)=\int_{\mathbb T}f^W_\ell(u)\,\mathbf 1_{I_r}(u)\,du .
+\]
+Both factors lie in $L^2(\mathbb T)$. With $c_t(F)=W^{-1}\int_0^W F(u)e^{-2\pi itu/W}\,du$, Tonelli gives $c_t(f^W_\ell)=W^{-1}\int_\R f_\ell(x)e^{-2\pi itx/W}\,dx=W^{-1}\phi_\ell(-2\pi t/W)$, while a direct integration over the arc gives $c_0(\mathbf 1_{I_r})=\ell/W=1/m$ and, for $t\ne0$,
+\[
+c_t(\mathbf 1_{I_r})=\frac1W\int_{\ell r-\ell/2}^{\ell r+\ell/2}e^{-2\pi itu/W}\,du
+=e^{-2\pi it\ell r/W}\,\frac{\sin(\pi t\ell/W)}{\pi t}
+=e^{-2\pi itr/m}\,\frac{\sin(\pi t/m)}{\pi t}.
+\]
+Parseval's identity on $\mathbb T$, $\int_{\mathbb T}F\bar G=W\sum_{t\in\Z}c_t(F)\overline{c_t(G)}$, the series converging absolutely by Cauchy--Schwarz, yields
+\[
+\Prob(K_\ell\equiv r\mid L=\ell)-\frac1m=\sum_{t\ne0}\phi_\ell(-2\pi t/W)\,e^{2\pi itr/m}\,\frac{\sin(\pi t/m)}{\pi t}.
+\]
+Taking absolute values, using $|\phi_\ell(-s)|=|\phi_\ell(s)|$ and pairing $t$ with $-t$,
+\begin{equation}\label{eq:S-fourier-sharp}
+\Bigl|\Prob(K_\ell\equiv r\mid L=\ell)-\frac1m\Bigr|\le 2\sum_{t\ge1}\frac{|\sin(\pi t/m)|}{\pi t}\,\bigl|\phi_\ell(2\pi t/W)\bigr| .
+\end{equation}
+Since $|\sin(\pi t/m)|\le\min(\pi t/m,1)$, the weight in \eqref{eq:S-fourier-sharp} is at most $\min(1/m,1/(\pi t))$, which is the bound of Lemma~\ref{lem:fourier}. The factor $2$ is the pairing of $\pm t$, and $1/m=\ell/W$ is the zero-frequency coefficient of the arc. \qed
+
+Two remarks. The bound \eqref{eq:S-fourier-sharp} is slightly sharper than that of Lemma~\ref{lem:fourier}: its weight vanishes at $t\equiv0\pmod m$, that is at the harmonics $2\pi t'/\ell$ of the level itself, which cannot affect a residue modulo $m$ of the multiplier. Second, the hypothesis $f^W_\ell\in L^2$ is used only to justify Parseval; the right-hand side is then automatically finite, since $\sum_t|\phi_\ell(2\pi t/W)|^2<\infty$ and $\sum_t(\pi t)^{-2}<\infty$.
+
+\subsection{Proof of the error bound in Proposition~\ref{prop:totient}}
+
+Let $\varepsilon_\ell=\max_r|\Prob(K_\ell\equiv r\mid L=\ell)-1/m|$, with $1/m=\ell/W$ as in the statement. On $\{L=\ell\}$, $G=\gcd(\ell K_\ell,\ell m)=\ell\gcd(K_\ell,m)=\ell\gcd(K_\ell\bmod m,\,m)$, so $G=d$ requires $\ell\mid d$ and then occurs exactly when $K_\ell\bmod m$ lies in the set of $\varphi(m/e)=\varphi(W/d)$ residues $r$ with $\gcd(r,m)=e=d/\ell$. Therefore, for $\ell\mid d$,
+\[
+\bigl|\Prob(G=d\mid L=\ell)-\Lambda_{d\ell}\bigr|
+=\Bigl|\sum_{r:\gcd(r,m)=d/\ell}\Bigl(\Prob(K_\ell\equiv r\mid L=\ell)-\frac1m\Bigr)\Bigr|
+\le\varphi(W/d)\,\varepsilon_\ell ,
+\]
+and for $\ell\nmid d$ both $\Prob(G=d\mid L=\ell)$ and $\Lambda_{d\ell}$ vanish. Averaging over $L$,
+\[
+\bigl|\Prob(G=d)-(\Lambda\bar\pi)_d\bigr|\le\sum_{\ell\in\lad}\bar\pi_\ell\bigl|\Prob(G=d\mid L=\ell)-\Lambda_{d\ell}\bigr|
+\le\varphi(W/d)\sum_{\ell\in S(d)}\bar\pi_\ell\varepsilon_\ell
+\le\varphi(W/d)\sum_{\ell\in\lad}\bar\pi_\ell\varepsilon_\ell ,
+\]
+which is the stated bound; the middle expression, with the sum restricted to $S(d)$, is slightly sharper. By Lemma~\ref{lem:fourier}, $\varepsilon_\ell\le2\sum_{t\ge1}\min(1/m_\ell,1/(\pi t))|\phi_\ell(2\pi t/W)|$. \qed
+
+\subsection{Proof of Proposition~\ref{prop:saturation}}
+
+Let $\bar\lad=\{\lcm T:\ \emptyset\ne T\subseteq\lad\}$ be the closure of $\lad$ under least common multiples; $\lad\subseteq\bar\lad$ and every element of $\bar\lad$ divides $W$.
+
+\begin{lemma}\label{lem:S-closure}
+The attainable patterns are exactly the sets $S(e)$, $e\in\bar\lad$, and $e\mapsto S(e)$ is a bijection from $\bar\lad$ onto them. Hence $V=|\bar\lad|\ge J$, with $V=J$ if and only if $\lad$ is closed under $\lcm$; in particular $V=J$ when $\lad$ is totally ordered by divisibility.
+\end{lemma}
+
+\begin{proof}
+For $d\mid W$ put $\bar d=\lcm S(d)\in\bar\lad$. Every $\ell\in S(d)$ divides $d$, so $\bar d\mid d$, whence $S(\bar d)\subseteq S(d)$; conversely $\ell\in S(d)$ implies $\ell\mid\bar d$. Thus $S(d)=S(\bar d)$, and every attainable pattern is of the form $S(e)$, $e\in\bar\lad$; every such set is attainable because $e\mid W$. If $e=\lcm T\in\bar\lad$ then $T\subseteq S(e)$, so $e\mid\lcm S(e)$, and $\lcm S(e)\mid e$ because each element of $S(e)$ divides $e$; hence $\lcm S(e)=e$, and $S(e)$ determines $e$. This proves the bijection and $V=|\bar\lad|$. Since $\lad\subseteq\bar\lad$, $V\ge J$, with equality if and only if $\bar\lad=\lad$, that is, if and only if $\lcm(\ell,\ell')\in\lad$ for all $\ell,\ell'\in\lad$ (pairwise closure gives closure under finite $\lcm$ by induction). A chain is closed, since then $\lcm(\ell,\ell')=\max(\ell,\ell')$.
+\end{proof}
+
+The first sentence of the proposition is the first part of the lemma, since $S(\lcm T)$ with $T$ ranging over subsets of $\lad$ ranges over $\{S(e):e\in\bar\lad\}$ (the empty $T$ gives $S(1)=\{1\}=S(\ell_1)$).
+
+\emph{Restrictions.} Write $p_S=\Prob(S(G)=S)$ for an attainable $S$. Summing \eqref{eq:totient} over $d\in D_S$,
+\begin{equation}\label{eq:S-B}
+p_S=c_S\sum_{\ell\in S}\ell\,\bar\pi_\ell,\qquad c_S=\frac1W\sum_{d\in D_S}\varphi(W/d)>0,
+\end{equation}
+so $p=B\bar\pi$ with $B$ the $V\times J$ matrix $B_{S\ell}=c_S\,\ell\,\mathbf 1\{\ell\in S\}$. Its rows indexed by $S(\ell')$, $\ell'\in\lad$, form a $J\times J$ block with $B_{S(\ell')\ell}\ne0$ if and only if $\ell\mid\ell'$; ordering $\lad$ increasingly, the block is lower triangular with positive diagonal, so $\operatorname{rank}B=J$. The columns of $B$ sum to one: $\sum_SB_{S\ell}=W^{-1}\ell\sum_{d:\ \ell\mid d\mid W}\varphi(W/d)=W^{-1}\ell\sum_{e\mid m}\varphi(m/e)=\ell m/W=1$. Consequently $B$ maps the hyperplane $\{\mathbf 1^\top\pi=1\}$ of $\R^J$ injectively into the hyperplane $\{\mathbf 1^\top p=1\}$ of $\R^V$, and the set of pattern distributions compatible with the model is the intersection of the simplex $\Delta_V$ with the $(J-1)$-dimensional affine subspace $\mathcal A=B\{\mathbf 1^\top\pi=1\}$, further cut by the $J$ inequalities $B^{-}p\ge0$, $B^{-}$ any left inverse of $B$. Within the $(V-1)$-dimensional affine hull of $\Delta_V$, $\mathcal A$ has codimension $V-J$: the model imposes exactly $V-J$ linear equality restrictions on the pattern distribution, and beyond them only the inequalities $\bar\pi\ge0$.
+
+\emph{The case $V=J$.} Then $B$ is square and invertible, $\mathcal A$ is the whole hyperplane, and there are no equality restrictions. Let $N_S$ be the pattern counts and $\hat p=(N_S/n)_S$. By Proposition~\ref{prop:totient}(b) the likelihood of the counts of $G$ is the multinomial likelihood of the pattern counts times a factor free of $\bar\pi$, so the two maximum-likelihood fits coincide. The multinomial log-likelihood $\sum_SN_S\log p_S$ is maximized over $\Delta_V$ uniquely at $\hat p$. Put $\hat\pi=B^{-1}\hat p$; since $\mathbf 1^\top B=\mathbf 1^\top$, also $\mathbf 1^\top B^{-1}=\mathbf 1^\top$ and $\mathbf 1^\top\hat\pi=1$. If $\hat\pi\ge0$, then $\hat\pi\in\Delta_J$ and $B\hat\pi=\hat p$ attains the unconstrained maximum, so $\hat\pi$ is the maximum-likelihood estimate and the fitted pattern frequencies $B\hat\pi$ equal the observed ones. \qed
+
+\emph{Numerical values.} Using Lemma~\ref{lem:S-closure} one computes: for $\{1,100,1000,5000,10^4\}$, a chain, $V=J=5$; for the fifteen-level ladder $\{1,\allowbreak 2,\allowbreak 5,\allowbreak 10,\allowbreak 25,\allowbreak 50,\allowbreak 100,\allowbreak 250,\allowbreak 500,\allowbreak 1000,\allowbreak 2500,\allowbreak 5000,\allowbreak 10^4,\allowbreak 2.5\cdot10^4,\allowbreak 5\cdot10^4\}$, which is not a chain but is closed under $\lcm$ ($\lcm(2,5)=10$, $\lcm(2,25)=50$, $\lcm(100,250)=500$, $\lcm(1000,2500)=5000$, $\lcm(10^4,2.5\cdot10^4)=5\cdot10^4$, and the remaining pairs are comparable), $V=J=15$; for $\{1,10,100,500,1000,2500,5000,10^4,2.5\cdot10^4\}$, $\bar\lad$ adds the single element $\lcm(10^4,2.5\cdot10^4)=5\cdot10^4$, so $V=10=J+1$, the extra pattern being the full set $S(5\cdot10^4)=\lad$.
+
+\subsection{Proof of Theorem~\ref{thm:spec}}
+
+\emph{The residue law.} On $\{L=\ell\}$, $Y=\ell K_\ell$ and $R=Y\bmod W=\ell\,(K_\ell\bmod m)$, because $0\le\ell(K_\ell\bmod m)<\ell m=W$ and $Y-\ell(K_\ell\bmod m)=W\lfloor K_\ell/m\rfloor\in W\Z$. Under Assumption~\ref{ass:residue}, $R$ given $L=\ell$ is therefore uniform on the $m$ multiples of $\ell$ in $\{0,\dots,W-1\}$, and
+\[
+\Prob(R=r)=\sum_{\ell\in\lad}\bar\pi_\ell\,\frac{\mathbf 1\{\ell\mid r\}}{m_\ell}=\frac1W\sum_{\ell\in S(r)}\ell\,\bar\pi_\ell .
+\]
+Since every $\ell\in\lad$ divides $W$, $\ell\mid Y$ if and only if $\ell\mid R$, so $S(R)=S(Y)=S(G)$, and the right-hand side depends on $r$ only through $S(r)$. For an attainable $S$ with $\Prob(S(R)=S)=|C_S|W^{-1}\sum_{\ell\in S}\ell\bar\pi_\ell>0$, dividing gives \eqref{eq:within}. Grouping $C_S$ by $\gcd(r,W)$ recovers \eqref{eq:withinG}: the number of $r\in C_S$ with $\gcd(r,W)=d$ is $\varphi(W/d)$ for $d\in D_S$, and $|C_S|=\sum_{d\in D_S}\varphi(W/d)$.
+
+\emph{(a) Conditional structure.} Let $S_i=S(R_i)$ and let $J_i\in\{1,\dots,M\}$ be the index of the arc containing $R_i$. The pairs $(S_i,J_i)$ are independent and identically distributed, and by \eqref{eq:within}, for every $S$ with $\rho_S=\Prob(S(R)=S)>0$,
+\[
+\Prob(J_i=j\mid S_i=S)=\sum_{r\in C_S\cap\mathrm{arc}_j}\frac1{|C_S|}=p_{j\mid S},
+\]
+a quantity determined by $\lad$, $W$ and $M$ alone. Hence, conditionally on $(S_1,\dots,S_n)$, the $J_i$ are independent with $J_i\sim p_{\cdot\mid S_i}$, and the array $(N_{Sj})$ has conditional law $\bigotimes_S\mathrm{Mult}(N_S,p_{\cdot\mid S})$. This law is a function of $(N_S)_S$ only, so by the tower property it is also the conditional law given $(N_S)_S$. It does not involve $\bar\pi$ or $\pi_\ell(\cdot)$, which enter only the law of $(N_S)_S$.
+
+The same holds for any rule that retains a set $\mathcal S_n$ of classes measurable with respect to $(N_S)_S$, such as $\mathcal S_n=\{S:N_S\ge20\}$: conditionally on $(N_S)_S$ the retained set is fixed and $T_n=\sum_{S\in\mathcal S_n}T_{n,S}$, where $T_{n,S}=\sum_{j:p_{j\mid S}>0}(N_{Sj}-N_Sp_{j\mid S})^2/(N_Sp_{j\mid S})$ are conditionally independent Pearson statistics of multinomials with known parameters. (Arcs with $p_{j\mid S}=0$ carry no reports under the null, and omitting them from the inner sum loses nothing; a rule that depended on the $N_{Sj}$ themselves would not preserve the conditional law.) The conditional distribution of $T_n$ is therefore known exactly, and the conditional Monte Carlo $p$-value $\hat p=(1+\#\{b\le B:T^{(b)}\ge T_n\})/(B+1)$, with $T^{(1)},\dots,T^{(B)}$ drawn from it, satisfies $\Prob(\hat p\le\alpha\mid(N_S)_S)\le\alpha$ for every $n$, since $T_n,T^{(1)},\dots,T^{(B)}$ are conditionally exchangeable.
+
+\emph{(a) Asymptotics.} By the strong law, $N_S/n\to\rho_S$ almost surely, so $N_S\to\infty$ and $S\in\mathcal S_n$ eventually when $\rho_S>0$, while $N_S=0$ almost surely when $\rho_S=0$. For a class with $\rho_S>0$, Pearson's theorem applied along the deterministic sequence $N_S\to\infty$ shows that the law of $T_{n,S}$ under $\mathrm{Mult}(N_S,p_{\cdot\mid S})$ converges to $\chi^2_{M_S-1}$, $M_S=\#\{j:p_{j\mid S}>0\}$. By conditional independence, the conditional characteristic function of $T_n$ given $(N_S)_S$ is the product over $S\in\mathcal S_n$ of those of the $T_{n,S}$, and converges almost surely to that of $\chi^2_\nu$,
+\[
+\nu=\sum_{S:\ \rho_S>0}(M_S-1),
+\]
+which is the sum $\sum_S(M_S-1)$ of the theorem, understood over the classes that occur; classes with $\rho_S=0$ never contribute. The unconditional characteristic function converges by dominated convergence, so $T_n\dto\chi^2_\nu$, and the conditional $(1-\alpha)$-quantiles of $T_n$ converge almost surely to $\chi^2_{\nu,1-\alpha}$. This proves (a).
+
+\emph{(b) Consistency.} Let $\tilde p_{j\mid S}=\Prob(J_i=j\mid S_i=S)$ under the true law of $Y$, and suppose $\tilde p_{\cdot\mid S}\ne p_{\cdot\mid S}$ for some $S$ with $\rho_S>0$. There is an arc $j$ with $p_{j\mid S}>0$ and $\tilde p_{j\mid S}\ne p_{j\mid S}$: otherwise $\tilde p$ and $p$ agree on $\{j:p_{j\mid S}>0\}$, where $p$ has total mass one, forcing $\tilde p=p$. By the strong law $N_{Sj}/n\to\rho_S\tilde p_{j\mid S}$ and $N_S/n\to\rho_S$ almost surely, hence
+\[
+\frac{T_n}{n}\;\to\;\kappa=\sum_{S:\rho_S>0}\rho_S\sum_{j:\ p_{j\mid S}>0}\frac{(\tilde p_{j\mid S}-p_{j\mid S})^2}{p_{j\mid S}}\quad\text{a.s.},
+\]
+and $\kappa>0$ by the choice of $(S,j)$; classes with $\rho_S>0$ are eventually retained and the others contribute nothing. Whatever the alternative, the conditional null law of $T_n$ given $(N_S)_S$ is still $\sum_{S\in\mathcal S_n}$ of independent Pearson statistics with $N_S\to\infty$ for $\rho_S>0$, so its quantiles converge almost surely to those of a fixed chi-square law. Since $T_n\to\infty$ almost surely, the rejection probability tends to one, whether the critical value is the chi-square quantile or the conditional Monte Carlo quantile; with $B$ draws, $\hat p\to1/(B+1)$ almost surely, which is below $\alpha$ once $B\ge\alpha^{-1}-1$. \qed
+
+\section{Details for Lemma~\ref{lem:split}}\label{supp:split}
+
+We record the two facts that the proof in Section~\ref{sec:resolution} uses. First, if $w/\ell$ is odd, the cell boundaries $b=kw\pm w/2=\ell\bigl(kw/\ell\pm\tfrac12(w/\ell)\bigr)$ are of the form $\ell(j+\tfrac12)$, $j\in\Z$, which are the boundaries of the rounding intervals $[\ell(j-\tfrac12),\ell(j+\tfrac12))$ of level $\ell$; each cell is a union of complete rounding intervals, and the report $\ell j$ lies in the same interval as the latent amount. If $w/\ell$ is even, both boundaries of every cell are multiples of $\ell$, the interval $[b-\ell/2,b+\ell/2)$ is the rounding interval of $b$, and no other rounding interval meets a boundary. Second, the bound $|h_\ell(b+t)-h_\ell(b-t)|\le2t\sup|h_\ell'|$ requires $h_\ell$ absolutely continuous with $h_\ell'$ essentially bounded on $[b-\ell/2,b+\ell/2]$; the suprema in the lemma are essential suprema of the almost-everywhere derivative, and the bound is void, not false, when they are infinite. The lemma also uses that $\pi_\ell\equiv0$ for $\ell\notin A$, which is the definition of $A$ as the set of levels in use. For the cell to the left of $b$ the splitting convention adds $\tfrac12\int_b^{b+\ell/2}h_\ell$ and removes $\tfrac12\int_{b-\ell/2}^bh_\ell$, giving the displayed error $\tfrac12\int_0^{\ell/2}\{h_\ell(b+t)-h_\ell(b-t)\}\,dt$, and $\tfrac12\int_0^{\ell/2}2t\,dt=\ell^2/8$.
+
+\section{Which profile the inversion needs}\label{supp:band-statement}
+
+The map \eqref{eq:map} involves $\pi_\ell(c)=\Prob(L=\ell\mid X\in C_c)$, the profile conditional on latent income. An estimator built by conditioning on the report returns a different function.
+
+\begin{proposition}\label{prop:band}
+\begin{enumerate}
+\item[(a)] $\Prob(L=\ell\mid Y=y)=0$ whenever $\ell\nmid y$. Hence $\Prob(L=\cdot\mid Y=y)$ and $\Prob(L=\cdot\mid X=y)$ differ at every $y$ not divisible by every level at which some $\pi_\ell(y)$ with $\ell\nmid y$ is positive, and the difference does not depend on the sample size.
+\item[(b)] Let $\lad$ be closed under least common multiples, let $B=[a,a+h)$ with $a$ and $h$ multiples of $W$, and suppose Assumption~\ref{ass:residue} holds conditionally on $X\in B$. Then the mixture weights of Proposition~\ref{prop:totient} computed from the reports in $B$ equal $\pi_\ell^B=\Prob(L=\ell\mid X\in B)$ up to an error bounded by
+\[
+\frac{1}{\Prob(X\in B)}\sum_{\ell\in\lad}\ell\sup_{x\in\partial B\pm\ell/2}h_\ell(x),
+\]
+the mass that rounding carries across the two edges of the band.
+\end{enumerate}
+\end{proposition}
+
+Part (a) is immediate, since a report is a multiple of the level that produced it, and its consequence is easiest to see at a number. Under the mechanism of the simulations of Section~\ref{sec:sim}, at \$12{,}000 the latent-conditional profile over the levels $\{1,\allowbreak 100,\allowbreak 1000,\allowbreak 5000,\allowbreak 10^4\}$ is $(0.153,\allowbreak 0.136,\allowbreak 0.339,\allowbreak 0.169,\allowbreak 0.203)$, while the report-conditional one is $(0,0.038,0.961,0,0)$. Regressing the EM posterior of each report on the report, as in the stochastic EM of \citet{GrossRendtel2016}, estimates a smoothed version of the second function. Part (b) shows that the right object is nevertheless identified: fitting the mixture separately on bands of reports whose edges are multiples of $W$ estimates band averages of the latent-conditional profile, up to the mass that rounding carries across the band edges and to the variation of the profile within a band. The band must span several periods of $W$ for the edge term to be small, which is the same requirement, applied locally, that Assumption~\ref{ass:residue} imposes globally.
+
+\section{Proof of Proposition~\ref{prop:band}}\label{supp:band}
+
+\emph{(a).} On $\{L=\ell\}$, $Y=\ell K_\ell\in\ell\Z$, so $\Prob(L=\ell,Y=y)=0$ and $\Prob(L=\ell\mid Y=y)=0$ whenever $\ell\nmid y$ and $\Prob(Y=y)>0$. The latent-conditional profile at $y$ is $\pi_\ell(y)$, which is not constrained by divisibility. The two profiles therefore differ at every $y$ for which $\pi_\ell(y)>0$ for some $\ell\nmid y$; in particular, if every $\pi_\ell(\cdot)$ is positive, at every $y$ not divisible by every level. Both are population quantities, so the difference is unaffected by the sample size. \qed
+
+\emph{(b).} Let $B=[a,a+h)$ with $a,h\in W\Z$, $h>0$, put $E=\{X\in B\}$, $F=\{Y\in B\}$, $I=F\setminus E$, $O=E\setminus F$, and let $\pi^B_\ell=\Prob(L=\ell\mid E)$. We first identify the edge events.
+
+\begin{lemma}\label{lem:S-edges}
+$I=\bigcup_{\ell\in\lad}\{L=\ell,\ a-\ell/2\le X<a\}$ and $O=\bigcup_{\ell\in\lad}\{L=\ell,\ a+h-\ell/2\le X<a+h\}$. On $I$, $Y=a$; on $O$, $Y=a+h$. In particular $Y\in W\Z$, $G=W$ and $S(G)=\lad$ on $I\cup O$, and
+\[
+\Prob(I)=\sum_{\ell\in\lad}\int_{a-\ell/2}^{a}h_\ell,\qquad
+\Prob(O)=\sum_{\ell\in\lad}\int_{a+h-\ell/2}^{a+h}h_\ell,\qquad h_\ell=g\,\pi_\ell .
+\]
+\end{lemma}
+
+\begin{proof}
+Fix $\ell$ and work on $\{L=\ell\}$. Since $\ell\mid W$, $a/\ell$ and $(a+h)/\ell$ are integers, and $K_\ell(x)=\lfloor x/\ell+\tfrac12\rfloor$ is non-decreasing. If $x\ge a$ then $K_\ell\ge a/\ell$ and $Y\ge a$; if $x\ge a+h$ then $Y\ge a+h$; if $x<a$ then $K_\ell\le a/\ell$, so $Y\le a$, with $Y=a$ exactly when $x/\ell+\tfrac12\ge a/\ell$, that is $x\ge a-\ell/2$. Hence $Y\in B$ with $X\notin B$ occurs exactly when $a-\ell/2\le x<a$, and then $Y=a$. Likewise $X\in B$ with $Y\notin B$ occurs exactly when $Y\ge a+h$, that is $a+h-\ell/2\le x<a+h$, and then $Y=a+h$. The probabilities follow from $\Prob(L=\ell,X\in dx)=h_\ell(x)\,dx$.
+\end{proof}
+
+Suppose Assumption~\ref{ass:residue} holds conditionally on $E$. The argument of Proposition~\ref{prop:totient} then gives $\Prob(G=d\mid L=\ell,E)=\Lambda_{d\ell}$, hence $\Prob(G=d,E)=\Prob(E)(\Lambda\pi^B)_d$. Writing $F=(E\setminus O)\cup I$ and using Lemma~\ref{lem:S-edges},
+\[
+\Prob(G=d,F)=\Prob(E)(\Lambda\pi^B)_d-\Prob(O)\mathbf 1\{d=W\}+\Prob(I)\mathbf 1\{d=W\},
+\quad
+\Prob(F)=\Prob(E)+\Prob(I)-\Prob(O).
+\]
+Let $p^F_d=\Prob(G=d\mid F)$ be the class distribution of the reports in the band and $\Delta=\Prob(I)-\Prob(O)$ the net flow into the band. Then
+\begin{equation}\label{eq:S-band-exact}
+p^F=\frac{\Prob(E)\,\Lambda\pi^B+\Delta\,e_W}{\Prob(F)},\qquad
+p^F-\Lambda\pi^B=\frac{\Delta}{\Prob(F)}\bigl(e_W-\Lambda\pi^B\bigr),
+\end{equation}
+where $e_W$ is the unit vector of the class $d=W$. Summing over $d\in D_S$ gives the same identities for the pattern distribution, with $B$ in place of $\Lambda$ and $e_{\lad}$ in place of $e_W$ (the pattern $\lad=S(W)$ has $D_{\lad}=\{W\}$). In every case $\sup_d|p^F_d-(\Lambda\pi^B)_d|\le|\Delta|/\Prob(Y\in B)$, and the same holds for the pattern distribution.
+
+\emph{The weights when $V=J$.} By Lemma~\ref{lem:S-closure}, $V=J$ means $\lad$ is closed under $\lcm$, so $W=\lcm\lad\in\lad$ is the coarsest level. Then $B_{\lad,\ell}=c_{\lad}\ell=\ell/W$ and the column of $B$ indexed by the level $W$ is $e_{\lad}$, because $\ell=W$ divides no other attainable $\lcm$ than $W$ itself. With $B$ invertible, \eqref{eq:S-band-exact} reads $p^F_S=B\pi^F$ for
+\begin{equation}\label{eq:S-band-pi}
+\pi^F=\frac{\Prob(E)\,\pi^B+\Delta\,e_W}{\Prob(F)},\qquad
+\pi^F-\pi^B=\frac{\Delta}{\Prob(Y\in B)}\bigl(e_W-\pi^B\bigr),
+\end{equation}
+$e_W$ now the unit vector of the level $W$. By Proposition~\ref{prop:saturation} and the consistency of the maximum-likelihood estimator, $\pi^F$ is the population value of the mixture weights computed from the reports in $B$ whenever it lies in the simplex, that is whenever $\Prob(E)\pi^B_W\ge\Prob(O)-\Prob(I)$; it always satisfies $\mathbf 1^\top\pi^F=1$. Under that condition,
+\begin{equation}\label{eq:S-band-bound}
+\max_\ell|\pi^F_\ell-\pi^B_\ell|=\frac{|\Delta|}{\Prob(Y\in B)}\max\bigl(1-\pi^B_W,\ \max_{\ell\ne W}\pi^B_\ell\bigr)\le\frac{|\Prob(I)-\Prob(O)|}{\Prob(Y\in B)} .
+\end{equation}
+The error is thus governed by the net, not the gross, flow across the edges, and only by the half-neighbourhoods $[a-\ell/2,a)$ and $[a+h-\ell/2,a+h)$ on the left of each edge, the band being closed on the left.
+
+\emph{The stated bound.} Let $\beta=\Prob(X\in B)^{-1}\sum_{\ell\in\lad}\ell\sup_{x\in\partial B\pm\ell/2}h_\ell(x)$ be the expression in the proposition, the supremum taken over $[a-\ell/2,a+\ell/2]\cup[a+h-\ell/2,a+h+\ell/2]$. By Lemma~\ref{lem:S-edges}, $\Prob(I)\le\sum_\ell(\ell/2)\sup_{[a-\ell/2,a]}h_\ell\le\beta\Prob(E)/2$ and likewise $\Prob(O)\le\beta\Prob(E)/2$. If $\Prob(I)\ge\Prob(O)$ then $\Prob(F)\ge\Prob(E)$ and the right-hand side of \eqref{eq:S-band-bound} is at most $\Prob(I)/\Prob(E)\le\beta/2$. If $\Prob(O)>\Prob(I)$, put $x=\Prob(O)-\Prob(I)\le\beta\Prob(E)/2$; then $\Prob(F)=\Prob(E)-x$ and the right-hand side is $x/(\Prob(E)-x)\le(\beta/2)/(1-\beta/2)=\beta/(2-\beta)\le\beta$ provided $\beta\le1$. When $\beta>1$ the bound $\beta$ holds trivially, the left-hand side of \eqref{eq:S-band-bound} being a difference of probabilities. This proves part (b) as stated, with the sharper form \eqref{eq:S-band-pi}--\eqref{eq:S-band-bound}. \qed
+
+\emph{The case $V>J$.} Then $W\notin\lad$, the pattern $\lad$ is not among the rows $S(\ell)$, $\ell\in\lad$, and $e_{\lad}\notin\operatorname{col}B$; the class distribution of the reports in the band is not exactly a model distribution, and the fitted weights depend on the fitting criterion. The triangular fit that solves \eqref{eq:S-B} on the rows $S(\ell)$, $\ell\in\lad$, returns $\Prob(E)\pi^B/\Prob(F)$ exactly, since those rows of $e_{\lad}$ vanish, so its error is $|\Delta|\,\pi^B_\ell/\Prob(F)$ and obeys \eqref{eq:S-band-bound}. The maximum-likelihood fit is a continuous function of the pattern distribution and its error is of the same order $|\Delta|/\Prob(F)$, but we do not give an explicit constant for it. Appending $W$ to the candidate ladder, which is harmless when no respondent rounds to $W$, restores $V=J$ for the ladders of the paper.

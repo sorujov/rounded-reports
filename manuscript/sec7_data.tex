@@ -1,0 +1,91 @@
+\section{Empirical applications}\label{sec:data}
+
+\subsection{Data and settings}
+
+All data are public-use files of the U.S.\ Census Bureau. From the 2022 one-year ACS Public Use Microdata Sample we take persons aged 25 to 64 in California, Mississippi and Puerto Rico, with annual wage and salary income (WAGP) and total personal income (PINCP), and occupied housing units in California, with monthly owner costs (SMOCP), contract rent (RNTP) and gross rent (GRNTP). From the 2023 CPS Annual Social and Economic Supplement we take wage and salary income of persons aged 25 to 64, and from the ASEC files of 2017 to 2021 (income years 2016 to 2020) one-person households living in housing units, with disposable income defined as total money income less federal income tax after credits, state income tax and payroll tax. All computations use the survey weights, with the effective sample size of Section~\ref{sec:mechanism} in the specification test and in the bootstrap.
+
+The candidate ladder is $\lad=\{1,\allowbreak 2,\allowbreak 5,\allowbreak 10,\allowbreak 25,\allowbreak 50,\allowbreak 100,\allowbreak 250,\allowbreak 500,\allowbreak 1000,\allowbreak 2500,\allowbreak 5000,\allowbreak 10^4,\allowbreak 2.5\cdot10^4,\allowbreak 5\cdot10^4\}$, the cut-off is $\delta_n=\min\{0.02,2n_{\mathrm{eff}}^{-1/2}\}$, and the specification test uses $M=10$ arcs and every candidate level that divides the working width, the least multiple of $\hat w_0$ of the form $\{1,\allowbreak 2,\allowbreak 5\}\times10^k$ that leaves at most a thousand cells between the first and the 95th percentile; it differs from $\hat w_0$ only when no level is active or the active levels are fine. Specification $p$-values use 499 conditional draws, so the smallest attainable value is $0.002$; the cell test uses 499 bootstrap draws (999 for the CPS one-person households).
+
+The Census Bureau rounds income amounts in the PUMS before release: amounts between \$8 and \$999 to the nearest \$10, amounts up to \$49{,}999 to the nearest \$100, and larger amounts to the nearest \$1{,}000 \citep{ACSPUMS2023}; in the 2022 files every positive WAGP below \$50{,}000 and above \$999 is a multiple of \$100 and every one from \$50{,}000 upwards a multiple of \$1{,}000. In the model of Section~\ref{sec:mechanism} this is an admissible level that depends deterministically on income, but it assigns the level \$100 only to amounts below \$50{,}000, the least common multiple of the ladder: the multipliers of that level lie in a single period of $W/100$, and Assumption~\ref{ass:residue} fails for it by construction. PINCP is a sum of rounded components and inherits a weaker version of the same structure. The CPS public-use file applies no such rule; seven per cent of its positive wage reports are not multiples of \$100.
+
+\subsection{Earnings and personal income}
+
+\begin{table}[t]
+\centering\small
+\caption{Earnings and personal income. Shares are percentages of positive reports divisible by \$1{,}000, \$5{,}000 and \$10{,}000; ``below'' is the share of reports below $\hat w_0$; $T/\mathrm{df}$ and $d$ are the specification statistic divided by its degrees of freedom and divided by the effective sample size; $K$ is the number of cells at $\hat w_0$ and $p$ the $p$-value of the cell test. All specification $p$-values are $0.002$, the smallest attainable.}\label{tab:earn}
+\resizebox{\textwidth}{!}{\begin{tabular}{llrrrrrrrrrrrr}
+\toprule
+ & & & & \multicolumn{3}{c}{\% divisible by} & & & \multicolumn{3}{c}{specification} & \multicolumn{2}{c}{cell test}\\
+\cmidrule(lr){5-7}\cmidrule(lr){10-12}\cmidrule(lr){13-14}
+source & variable & $n$ & median & 1k & 5k & 10k & $\hat w_0$ & below & $T/\mathrm{df}$ & df & $d$ & $K$ & $p$\\
+\midrule
+ACS CA & wages & 148{,}347 & 52{,}000 & 88 & 55 & 38 & 50{,}000 & 0.46 & 94.90 & 60 & 0.060 & 6 & 1.00 \\
+ACS CA & pers.\ income & 178{,}286 & 50{,}000 & 76 & 45 & 30 & 50{,}000 & 0.50 & 91.00 & 69 & 0.056 & 6 & 1.00 \\
+ACS MS & wages & 9{,}632 & 40{,}000 & 85 & 44 & 29 & 50{,}000 & 0.63 & 8.70 & 51 & 0.083 & 4 & 1.00 \\
+ACS MS & pers.\ income & 12{,}389 & 35{,}400 & 70 & 35 & 22 & 50{,}000 & 0.67 & 14.30 & 60 & 0.126 & 4 & 1.00 \\
+ACS PR & wages & 7{,}527 & 21{,}400 & 46 & 18 & 12 & 10{,}000 & 0.16 & 11.80 & 33 & 0.071 & 10 & 1.00 \\
+ACS PR & pers.\ income & 11{,}148 & 18{,}300 & 39 & 15 & 9 & 10{,}000 & 0.24 & 21.00 & 33 & 0.085 & 9 & 1.00 \\
+CPS 2023 & wages & 55{,}499 & 55{,}000 & 86 & 54 & 35 & 50{,}000 & 0.43 & 8.30 & 105 & 0.022 & 5 & 1.00 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The excess mass and dip tests applied to the logarithm of the reports, on a weighted resample of 6{,}000, return $p$-values of zero for every variable in Table~\ref{tab:earn}. In California, Mississippi and the CPS the \$25{,}000 or \$50{,}000 level is active and $\hat w_0=\$50{,}000$; in Puerto Rico $\hat w_0=\$10{,}000$. The specification test rejects on every variable: where $\hat w_0=\$50{,}000$, between 43 and 67 per cent of the reports lie below it, so the multipliers of the coarse levels occupy the first one or two periods of $W$ and cannot be close to uniform within their classes; in the ACS the agency's rounding adds a failure by construction, and the distances $d$ are between two and a half and six times that of the CPS. In Puerto Rico only a sixth of wage reports lie below $\hat w_0=\$10{,}000$, and the rejection has an institutional source: the PUMS replaces amounts above a state's top-coding threshold by their mean \citep{ACSPUMS2023}, which places 1.6 per cent of the weighted wage reports at \$241{,}000, a single residue modulo \$10{,}000, the case of mass that is not the result of rounding.
+
+With four to ten cells at the certified width the cell test finds nothing; this is not evidence of unimodality but the statement that the reports carry no information about modality at a resolution they support without a model of the profile. Excluding allocated reports changes none of these conclusions, except that for personal income in Mississippi the \$50{,}000 level falls below $\delta$, the certified width becomes \$10{,}000, and the cell test on its 14 cells returns $p=0.13$. The inversion of Section~\ref{sec:inversion} would buy resolution, since $\kappa(A(w))$ is modest down to \$1{,}000, but its gate is shut: the mechanism it would invert is rejected.
+
+\subsection{Housing costs}
+
+\begin{table}[t]
+\centering\small
+\caption{Monthly housing costs, ACS 2022, California. Columns as in Table~\ref{tab:earn}; ``valley'' is the interval, in dollars a month, that must contain a local minimum of the latent density, and $p^\ast$ the identified set \eqref{eq:pstar} for its percentile. All specification $p$-values are $0.002$.}\label{tab:housing}
+\resizebox{\textwidth}{!}{\begin{tabular}{lrlrrrrrrll}
+\toprule
+variable & $n$ & active & $\hat w_0$ & $T/\mathrm{df}$ & df & $d$ & $K$ & $p$ & valley & $p^\ast$\\
+\midrule
+owner cost (SMOCP) & 85{,}603 & 10, 25 & 50 & 33.75 & 24 & 0.015 & 112 & 0.85 & 1{,}525--1{,}775 & 0.38--0.44 \\
+contract rent (RNTP) & 50{,}520 & 10, 50, 100, 500 & 500 & 39.49 & 15 & 0.018 & 8 & 1.00 & -- & -- \\
+gross rent (GRNTP) & 50{,}520 & 5, 10, 50, 100 & 100 & 13.75 & 33 & 0.014 & 39 & 0.01 & 250--650 & 0.01--0.06 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Monthly housing costs are small amounts measured against fine ladders (Table~\ref{tab:housing}): the certified widths are \$50, \$100 and \$500 a month, and two of the three variables leave the test dozens of cells. The specification test again rejects, but the distances $d$ are 0.014 to 0.018, below even the value for CPS wages: with tens of thousands of reports a departure of this size is detected without being large. Owner costs and gross rent are constructed variables, the first adding mortgage payments, taxes, insurance, utilities and fees, some of them annual amounts divided by twelve (the active \$25 level is the trace of that division), the second adding utilities to contract rent. For owner costs the test does not reject ($p=0.85$). For gross rent it does ($p=0.012$), locating the valley between \$250 and \$650 a month, within the bottom six per cent of renters, where a separate concentration of very low gross rents would be consistent with subsidised tenancies. But the mechanism is rejected, so by the rule of Section~\ref{sec:mechanism} the finding is kept only if it persists at coarser lattice-compatible widths; at \$200 it does not ($p=0.38$), and we do not retain it.
+
+\subsection{Disposable income of one-person households}
+
+\begin{table}[t]
+\centering\small
+\caption{Disposable income of one-person households, CPS ASEC, income years 2016--2020. For each sample: the specification statistic $T/\mathrm{df}$ with its $p$-value, the $p$-value of the cell test, and the interval (in thousands of dollars) that must contain the valley located by the test. ``Filtered'' excludes households with more than half of their money income from public transfers.}\label{tab:cps}
+\resizebox{\textwidth}{!}{\begin{tabular}{llccccc}
+\toprule
+sample & & 2016 & 2017 & 2018 & 2019 & 2020\\
+\midrule
+all & $n$ & 16{,}594 & 16{,}320 & 16{,}658 & 14{,}892 & 15{,}701 \\
+ & spec. & 7.52 ($<0.01$) & 8.94 ($<0.01$) & 8.09 ($<0.01$) & 7.85 ($<0.01$) & 12.95 ($<0.01$) \\
+ & cell & $<0.01$ & $<0.01$ & 0.06 & 0.23 & 0.56 \\
+ & valley & 17.5--20.4 & 11.0--13.2 & 10.9--13.2 & 27.5--32.1 & 11.5--12.9 \\
+\addlinespace
+filtered & $n$ & 10{,}698 & 10{,}398 & 10{,}686 & 9{,}657 & 9{,}677 \\
+ & spec. & 1.33 (0.11) & 1.10 (0.30) & 1.40 (0.06) & 1.10 (0.31) & 1.74 ($<0.01$) \\
+ & cell & 0.01 & 0.009 & 0.39 & 0.003 & 0.81 \\
+ & valley & 0.1--8.7 & 0.9--8.7 & 26.5--30.5 & 0.5--8.9 & 2.3--11.3 \\
+\addlinespace
+filtered, gross & $n$ & 3{,}673 & 3{,}679 & 3{,}876 & 3{,}405 & 3{,}459 \\
+earnings a multiple & spec. & 1.53 (0.04) & 1.43 (0.06) & 1.23 (0.16) & 1.76 ($<0.01$) & 1.93 ($<0.01$) \\
+of \$5{,}000 & cell & 0.01 & $<0.01$ & $<0.01$ & 0.02 & 0.03 \\
+ & valley & 25.3--31.1 & 25.1--30.9 & 25.7--35.7 & 25.6--31.9 & 27.7--33.7 \\
+\addlinespace
+filtered, other & $n$ & 7{,}025 & 6{,}719 & 6{,}810 & 6{,}252 & 6{,}218 \\
+ & spec. & 1.57 (0.01) & 0.92 (0.60) & 1.99 ($<0.01$) & 1.37 (0.08) & 1.13 (0.31) \\
+ & cell & 0.01 & $<0.01$ & 0.27 & 0.008 & 0.46 \\
+ & valley & 0.6--9.6 & 1.3--10.0 & 2.4--7.2 & 1.1--10.5 & 2.3--12.3 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Disposable income, the variable on which modality is usually studied, is an amount computed by the survey from reported components, simulated taxes and credits, whose arithmetic owes little to the respondent. Table~\ref{tab:cps} reports one-person households, for which no equivalence scale intervenes. On the full sample the levels \$10 and \$100 are active and the specification test rejects in every year, with $T/\mathrm{df}$ between 7.5 and 13. The lattice enters with the households living mainly on public transfers: once they are removed no level is active, and the specification test accepts in four of the five years at the five per cent level. On the full sample the cell test rejects in two years, at valleys whose location moves from year to year; with a rejected mechanism we do not interpret them.
+
+On the filtered sample the test rejects in 2016, 2017 and 2019, each time at a valley below \$9{,}000, within the bottom six per cent of the distribution; the mechanism passes, but at a width of \$1{,}000 none of the three rejections survives at the five per cent level ($p=0.61$, $0.08$ and $0.54$), and we do not interpret them. A thinning of the distribution between roughly \$25{,}000 and \$32{,}000 appears in 2018 on the filtered sample, but is not significant there ($p=0.39$) and is not what the test finds in the other years. It is significant in every year in the subsample of respondents whose gross earnings are a multiple of \$5{,}000, and absent from the complementary subsample, where the only valleys the test finds are again at the bottom. The rejection weakens as the width grows past the spacing of the atoms described next: at \$2{,}000 the test rejects only in 2016, and there between \$31{,}000 and \$35{,}000. A gross amount rounded to \$5{,}000 is carried through the tax computation to an amount that is no longer round: in 2017, gross earnings of \$30{,}000, \$35{,}000 and \$40{,}000 map to disposable incomes with medians \$24{,}400, \$28{,}300 and \$31{,}700, each with an interdecile range of about \$1{,}500. The rounding of the components survives as a sequence of atoms about \$3{,}500 apart, at amounts with no divisibility structure, and at a width of \$200 the test sees the spaces between them.
+
+The thinning between \$25{,}000 and \$32{,}000 is thus a property of how gross earnings are reported, not evidence of a gap in the distribution of disposable income. And a specification test applied to a constructed variable cannot see rounding in its components, because the construction destroys the divisibility on which the test rests: on the subsample where the transmitted atoms are strongest, the test accepts the reporting model in two of five years at the five per cent level.

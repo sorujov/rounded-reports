@@ -1,0 +1,178 @@
+\section{Additional simulation results}\label{supp:tables}
+
+The designs and mechanisms are those of Section~\ref{sec:sim}. Rejection frequencies are at the five per cent level. Tables~S1 and~S2 use 200 replications per cell, for which a frequency of $0.05$ has a Monte Carlo standard error of about $0.015$; Tables~S3--S5 use 400 replications for unimodal and 200 for bimodal designs, as in Table~\ref{tab:sim} (standard errors of about $0.011$ and $0.015$ at $0.05$); Table~S6 uses 60.
+
+\begin{table}[h]
+\centering\small
+\caption{Specification test of Theorem~\ref{thm:spec}: rejection frequencies. ``Correct ladder'': the test on every candidate level dividing the certified width. ``Decimal ladder'': the same test on the levels $1,10,100,\dots$ only, which omits the active levels $500$, $2500$ and $5000$. ``Below'': average share of reports below $W$.}\label{tab:S-spec}
+\begin{tabular}{llrcccccc}
+\toprule
+ & & & \multicolumn{3}{c}{correct ladder} & \multicolumn{3}{c}{decimal ladder}\\
+\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+mechanism & design & below & 2{,}000 & 5{,}000 & 20{,}000 & 2{,}000 & 5{,}000 & 20{,}000\\
+\midrule
+ACS & LN & 0.04 & 0.06 & 0.07 & 0.04 & 1.00 & 1.00 & 1.00\\
+ & GA & 0.04 & 0.04 & 0.05 & 0.07 & 1.00 & 1.00 & 1.00\\
+ & SM & 0.03 & 0.05 & 0.04 & 0.04 & 1.00 & 1.00 & 1.00\\
+ & SHLD & 0.01 & 0.03 & 0.08 & 0.09 & 1.00 & 1.00 & 1.00\\
+ & PLAT & 0.00 & 0.07 & 0.05 & 0.03 & 1.00 & 1.00 & 1.00\\
+ & FLATDEC & 0.02 & 0.04 & 0.06 & 0.06 & 1.00 & 1.00 & 1.00\\
+ & FLATTOP & 0.01 & 0.03 & 0.05 & 0.06 & 1.00 & 1.00 & 1.00\\
+\addlinespace
+types & LN & 0.05 & 0.05 & 0.04 & 0.05 & 1.00 & 1.00 & 1.00\\
+ & GA & 0.05 & 0.06 & 0.07 & 0.06 & 1.00 & 1.00 & 1.00\\
+ & SM & 0.03 & 0.04 & 0.06 & 0.04 & 1.00 & 1.00 & 1.00\\
+ & SHLD & 0.01 & 0.05 & 0.07 & 0.08 & 1.00 & 1.00 & 1.00\\
+ & PLAT & 0.00 & 0.05 & 0.04 & 0.04 & 1.00 & 1.00 & 1.00\\
+ & FLATDEC & 0.02 & 0.04 & 0.05 & 0.05 & 1.00 & 1.00 & 1.00\\
+ & FLATTOP & 0.01 & 0.07 & 0.04 & 0.04 & 1.00 & 1.00 & 1.00\\
+\addlinespace
+ACS $+$ \$25k & LN & 0.54 & 0.99 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00\\
+ & GA & 0.53 & 0.69 & 0.99 & 1.00 & 1.00 & 1.00 & 1.00\\
+ & SM & 0.02 & 0.05 & 0.04 & 0.07 & 0.88 & 0.96 & 1.00\\
+ & SHLD & 0.55 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00\\
+ & PLAT & 0.41 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00\\
+ & FLATDEC & 0.37 & 0.78 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00\\
+ & FLATTOP & 0.23 & 0.05 & 0.08 & 0.30 & 1.00 & 1.00 & 1.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{Calibration of the activity cut-off. The ACS mechanism with an additional level of \$25{,}000 used with probability $q$; the cell test is run at $w=\$10{,}000$, which ignores that level. Rejection frequencies of a true null. On the designs not shown (LN, GA, SM, SHLD, PLAT) every frequency is at most $0.01$ for $q\le0.05$.}\label{tab:S-delta}
+\begin{tabular}{lrcccccc}
+\toprule
+design & $n$ & $q=0$ & $0.01$ & $0.02$ & $0.03$ & $0.05$ & $0.10$\\
+\midrule
+FLATDEC & 2{,}000 & 0.02 & 0.02 & 0.01 & 0.02 & 0.05 & 0.12\\
+ & 10{,}000 & 0.02 & 0.02 & 0.01 & 0.04 & 0.09 & 0.94\\
+ & 50{,}000 & 0.01 & 0.01 & 0.09 & 0.22 & 0.87 & 1.00\\
+FLATTOP & 2{,}000 & 0.01 & 0.02 & 0.02 & 0.04 & 0.08 & 0.23\\
+ & 10{,}000 & 0.03 & 0.02 & 0.04 & 0.08 & 0.35 & 0.97\\
+ & 50{,}000 & 0.02 & 0.04 & 0.22 & 0.46 & 0.95 & 1.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Rejection frequencies, $n=10{,}000$, exact and type-dependent reporting. Columns and conventions as in Table~\ref{tab:sim}.}\label{tab:S-sim10b}
+\begin{tabular}{l*{6}{c}@{\hspace{10pt}}*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{exact reports} & \multicolumn{6}{c}{types}\\
+\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+design & EM & dip & floor & jit. & rer. & cell & EM & dip & floor & jit. & rer. & cell\\
+\midrule
+LN & .04 & .03 & .07 & .03 & .00 & .00 & 1.00 & 1.00 & .03 & .03 & .06 & .00 \\
+GA & .06 & .05 & .20 & .06 & .00 & .00 & 1.00 & 1.00 & .27 & .07 & .00 & .00 \\
+SM & .05 & .03 & .21 & .04 & .00 & .00 & 1.00 & 1.00 & .16 & .03 & .07 & .00 \\
+SHLD$^\dagger$ & .20 & .42 & .41 & .19 & .00 & .00 & 1.00 & 1.00 & .28 & .22 & .04 & .00 \\
+PLAT & .04 & .35 & .07 & .04 & .00 & .00 & 1.00 & 1.00 & .06 & .03 & .00 & .00 \\
+FLATDEC$^\dagger$ & 1.00 & 1.00 & .27 & 1.00 & .01 & .05 & 1.00 & 1.00 & .30 & 1.00 & .00 & .02 \\
+FLATTOP & .01 & .01 & .23 & .01 & .01 & .01 & 1.00 & 1.00 & .22 & .02 & .00 & .01 \\
+\midrule
+N1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+N2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+N3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M4 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M5 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M6 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+S1 & 1.00 & 1.00 & 1.00 & 1.00 & .83 & .65 & 1.00 & 1.00 & 1.00 & 1.00 & .84 & .74 \\
+S2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Rejection frequencies, $n=2{,}000$, ACS mechanisms. Columns and conventions as in Table~\ref{tab:sim}.}\label{tab:S-sim2a}
+\begin{tabular}{l*{6}{c}@{\hspace{10pt}}*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{ACS mechanism} & \multicolumn{6}{c}{ACS${}+{}$\$25k}\\
+\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+design & EM & dip & floor & jit. & rer. & cell & EM & dip & floor & jit. & rer. & cell\\
+\midrule
+LN & 1.00 & 1.00 & .16 & .04 & .00 & .00 & 1.00 & 1.00 & .02 & .07 & .01 & .00 \\
+GA & 1.00 & 1.00 & .22 & .04 & .00 & .00 & 1.00 & 1.00 & .10 & .05 & .19 & .00 \\
+SM & 1.00 & 1.00 & .19 & .03 & .03 & .00 & 1.00 & 1.00 & .21 & 1.00 & .02 & .00 \\
+SHLD$^\dagger$ & 1.00 & 1.00 & .36 & .14 & .01 & .00 & 1.00 & 1.00 & .00 & .17 & .01 & .00 \\
+PLAT & 1.00 & 1.00 & .26 & .06 & .00 & .00 & 1.00 & 1.00 & .00 & .04 & .21 & .00 \\
+FLATDEC$^\dagger$ & 1.00 & 1.00 & .41 & .75 & .00 & .01 & 1.00 & 1.00 & .39 & .65 & .00 & .00 \\
+FLATTOP & 1.00 & 1.00 & .28 & .02 & .00 & .01 & 1.00 & 1.00 & .20 & .03 & .01 & .00 \\
+\midrule
+N1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & .22 & 1.00 & 1.00 & .00 \\
+N2 & 1.00 & 1.00 & .89 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & .00 & 1.00 & .77 & .00 \\
+N3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M1 & 1.00 & 1.00 & 1.00 & 1.00 & .97 & .89 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M2 & 1.00 & 1.00 & 1.00 & 1.00 & .94 & .90 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .96 & .00 \\
+M4 & 1.00 & 1.00 & 1.00 & 1.00 & .65 & 1.00 & 1.00 & 1.00 & .02 & .96 & .02 & .00 \\
+M5 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & .82 & 1.00 & 1.00 & .01 & 1.00 & .03 & .00 \\
+M6 & 1.00 & 1.00 & 1.00 & 1.00 & .98 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .65 & .85 \\
+S1 & 1.00 & 1.00 & 1.00 & 1.00 & .17 & .14 & 1.00 & 1.00 & .00 & .96 & .41 & .00 \\
+S2 & 1.00 & 1.00 & 1.00 & 1.00 & .86 & .72 & 1.00 & 1.00 & .01 & 1.00 & .29 & .00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Rejection frequencies, $n=2{,}000$, exact and type-dependent reporting. Columns and conventions as in Table~\ref{tab:sim}.}\label{tab:S-sim2b}
+\begin{tabular}{l*{6}{c}@{\hspace{10pt}}*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{exact reports} & \multicolumn{6}{c}{types}\\
+\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+design & EM & dip & floor & jit. & rer. & cell & EM & dip & floor & jit. & rer. & cell\\
+\midrule
+LN & .03 & .03 & .05 & .02 & .00 & .00 & 1.00 & 1.00 & .08 & .03 & .02 & .00 \\
+GA & .06 & .04 & .19 & .05 & .00 & .00 & 1.00 & 1.00 & .13 & .06 & .01 & .00 \\
+SM & .05 & .03 & .20 & .05 & .01 & .00 & 1.00 & 1.00 & .15 & .04 & .01 & .00 \\
+SHLD$^\dagger$ & .14 & .27 & .35 & .14 & .00 & .00 & 1.00 & 1.00 & .33 & .14 & .00 & .00 \\
+PLAT & .04 & .30 & .13 & .04 & .00 & .00 & 1.00 & 1.00 & .17 & .05 & .00 & .00 \\
+FLATDEC$^\dagger$ & .84 & .91 & .26 & .84 & .01 & .07 & 1.00 & 1.00 & .36 & .79 & .00 & .03 \\
+FLATTOP & .04 & .03 & .23 & .04 & .02 & .00 & 1.00 & 1.00 & .25 & .04 & .01 & .02 \\
+\midrule
+N1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+N2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .97 & 1.00 & 1.00 & .00 \\
+N3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .99 & 1.00 & 1.00 & 1.00 & 1.00 & .99 & .98 \\
+M3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+M4 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .98 & 1.00 \\
+M5 & 1.00 & 1.00 & 1.00 & 1.00 & .95 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .78 & .85 \\
+M6 & 1.00 & 1.00 & 1.00 & 1.00 & .99 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+S1 & 1.00 & 1.00 & 1.00 & 1.00 & .20 & .17 & 1.00 & 1.00 & 1.00 & 1.00 & .23 & .14 \\
+S2 & 1.00 & 1.00 & 1.00 & 1.00 & .95 & .90 & 1.00 & 1.00 & 1.00 & 1.00 & .93 & .81 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{The inverted test of Section~\ref{sec:inversion} at $w=\$5{,}000$, ladder $\{1,100,1000,5000,10^4\}$, under a profile that moves strongly with income; rejection frequencies at the five per cent level over 60 replications, 99 bootstrap draws. ``True'': the latent-conditional profile used to generate the data. ``Band'': the band estimator of Proposition~\ref{prop:band}(b) with bands of \$80{,}000 and \$160{,}000. ``Logit'': a multinomial logit of the level on log income fitted by EM to the reports. ``Marginal'': the constant profile $\hat{\bar\pi}$. ``Omit'': the true profile with the \$5{,}000 level removed from the ladder (a separate run of 60 replications, in which the true profile gave rejection rates of at most $0.02$ on every design shown). M1 is bimodal. The simulations use cells $[(k-1)w,kw)$ and the exact reporting map.}\label{tab:S-inv}
+\begin{tabular}{lrcccccc}
+\toprule
+design & $n$ & true & band 80k & band 160k & logit & marginal & omit\\
+\midrule
+LN & 50{,}000 & 0.00 & 0.62 & 1.00 & 0.07 & 1.00 & 0.97\\
+ & 200{,}000 & 0.00 & 1.00 & 1.00 & 0.27 & 1.00 & 1.00\\
+GA & 50{,}000 & 0.00 & 1.00 & 1.00 & 0.03 & 1.00 & 0.95\\
+ & 200{,}000 & 0.00 & 1.00 & 1.00 & 0.22 & 1.00 & 1.00\\
+PLAT & 50{,}000 & 0.00 & 0.30 & 1.00 & 0.18 & 1.00 & 1.00\\
+ & 200{,}000 & 0.03 & 0.63 & 1.00 & 0.40 & 1.00 & 1.00\\
+SHLD & 50{,}000 & -- & -- & -- & -- & -- & 1.00\\
+ & 200{,}000 & -- & -- & -- & -- & -- & 1.00\\
+SM & 50{,}000 & -- & -- & -- & -- & -- & 0.00\\
+ & 200{,}000 & -- & -- & -- & -- & -- & 0.00\\
+M1 & 50{,}000 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & --\\
+ & 200{,}000 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & --\\
+\bottomrule
+\end{tabular}
+\end{table}

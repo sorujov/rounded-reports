@@ -1,0 +1,93 @@
+\section{The reporting mechanism}\label{sec:mechanism}
+
+\subsection{Model}
+
+Let $X>0$ denote latent income, with density $g$; amounts are measured in the smallest currency unit, so reports are integers. A candidate ladder is a finite set of positive integers $\lad=\{\ell_1<\cdots<\ell_J\}$ with $\ell_1=1$, and $W=\lcm\lad$. A respondent with income $x$ chooses a level $L\in\lad$ with probability $\pi_\ell(x)=\Prob(L=\ell\mid X=x)$ and reports
+\[
+Y=r_L(X),\qquad r_\ell(x)=\ell K_\ell,\qquad K_\ell=\lfloor x/\ell+\tfrac12\rfloor .
+\]
+Write $\bar\pi_\ell=\E\,\pi_\ell(X)$ for the marginal rounding probabilities. Nothing is assumed about the dependence of $\pi_\ell(\cdot)$ on income.
+
+Since every $\ell\in\lad$ divides $W$, the divisibility pattern of a report,
+\[
+S(Y)=\{\ell\in\lad:\ \ell\mid Y\},
+\]
+depends on $Y$ only through $G=\gcd(Y,W)$, the \emph{arithmetic content} of the report. For $d\mid W$ write $S(d)=\{\ell\in\lad:\ell\mid d\}$, and let $\tau(W)$ be the number of divisors of $W$ and $V$ the number of distinct sets $S(d)$, $d\mid W$; these are the attainable patterns.
+
+\subsection{Identification}
+
+\begin{assumption}[Residue regularity]\label{ass:residue}
+For every $\ell\in\lad$, conditionally on $L=\ell$, the residue of $K_\ell$ modulo $W/\ell$ is uniformly distributed on $\{0,1,\dots,W/\ell-1\}$.
+\end{assumption}
+
+Assumption~\ref{ass:residue} holds exactly for no income distribution and approximately for any whose relevant densities vary slowly on the scale $W$; the next lemma, a form of the Poisson-summation argument behind Sheppard's corrections \citep[see][]{Janson2006}, makes this quantitative.
+
+\begin{lemma}\label{lem:fourier}
+Fix $\ell\in\lad$, put $m=W/\ell$, and let $\phi_\ell$ be the characteristic function of $X$ given $L=\ell$. Suppose the $W$-periodization of the conditional density of $X$ given $L=\ell$ is square integrable on $[0,W)$. Then for every residue $r$,
+\[
+\Bigl|\Prob\bigl(K_\ell\equiv r \ (\mathrm{mod}\ m)\mid L=\ell\bigr)-\frac1m\Bigr|
+\;\le\; 2\sum_{t\ge1}\min\Bigl(\frac1m,\frac1{\pi t}\Bigr)\bigl|\phi_\ell(2\pi t/W)\bigr| .
+\]
+\end{lemma}
+
+The bound is governed by the decay of $\phi_\ell$ at the frequencies $2\pi t/W$, that is, by how many periods of $W$ the conditional distribution of income spans. For a lognormal calibrated to American earnings (median \$40{,}135, interquartile range \$21{,}816 to \$73{,}574) the leading term $|\phi(2\pi/W)|$ is $0.005$ when $W=10{,}000$ and $0.139$ when $W=50{,}000$. An indicator available before any estimation is the share of reports below $W$: when most reports lie in the first period of $W$, the residues cannot be close to uniform.
+
+\begin{proposition}\label{prop:totient}
+Under Assumption~\ref{ass:residue}, for every $d\mid W$,
+\begin{equation}\label{eq:totient}
+\Prob(G=d\mid L=\ell)=\frac{\ell\,\varphi(W/d)}{W}\,\mathbf 1\{\ell\mid d\},
+\qquad
+\Prob(G=d)=\frac{\varphi(W/d)}{W}\sum_{\ell\in S(d)}\ell\,\bar\pi_\ell ,
+\end{equation}
+where $\varphi$ is Euler's totient. Consequently:
+\begin{enumerate}
+\item[(a)] the $\tau(W)\times J$ matrix $\Lambda$ with entries $\Lambda_{d\ell}=\ell\varphi(W/d)W^{-1}\mathbf 1\{\ell\mid d\}$ has full column rank, and $\bar\pi$ is identified from the distribution of $G$;
+\item[(b)] the pattern $S(G)$ is sufficient for $\bar\pi$;
+\item[(c)] conditionally on $S(G)=S$, the arithmetic content has the law
+\begin{equation}\label{eq:withinG}
+\Prob\bigl(G=d\mid S(G)=S\bigr)=\frac{\varphi(W/d)}{\sum_{d'\in D_S}\varphi(W/d')},\qquad d\in D_S=\{d\mid W: S(d)=S\},
+\end{equation}
+which does not depend on $\bar\pi$ or on the rounding profile $\pi_\ell(\cdot)$.
+\end{enumerate}
+If Assumption~\ref{ass:residue} holds only up to $\varepsilon_\ell=\max_r|\Prob(K_\ell\equiv r\mid L=\ell)-\ell/W|$, then $|\Prob(G=d)-(\Lambda\bar\pi)_d|\le\varphi(W/d)\sum_\ell\bar\pi_\ell\varepsilon_\ell$.
+\end{proposition}
+
+\begin{proof}
+On $\{L=\ell\}$, $G=\gcd(\ell K_\ell,W)=\ell\gcd(K_\ell,m)$ with $m=W/\ell$, so $\ell\mid G$. For $e\mid m$ the number of residues $k$ modulo $m$ with $\gcd(k,m)=e$ is $\varphi(m/e)$; with $e=d/\ell$ this is $\varphi(W/d)$, and uniformity of the residue gives the first identity in \eqref{eq:totient}; averaging over $L$ gives the second. For (a), order $\lad$ increasingly and restrict $\Lambda$ to the rows $d\in\lad$. Since $\Lambda_{\ell'\ell}\neq0$ requires $\ell\mid\ell'$, this $J\times J$ block is lower triangular, with diagonal entries $\ell\varphi(W/\ell)/W>0$. Parts (b) and (c) follow from the factorization of \eqref{eq:totient} into a term depending on $d$ only through $\varphi(W/d)$ and a term depending on $d$ only through $S(d)$. The last statement follows by summing the error in the residue law over the $\varphi(W/d)$ residues with the required greatest common divisor.
+\end{proof}
+
+The rounding probabilities are estimated by maximum likelihood from the counts of patterns, which by (b) loses nothing, by the EM recursion for a finite mixture with known components. The arithmetic accounts for coincidences: once reports pile up at multiples of \$5{,}000, a fifth of them are multiples of \$25{,}000 whatever the respondents did, which a rule based on divisibility shares reads as a habit.
+
+\subsection{Testing the mechanism}
+
+The natural check, comparing observed divisibility shares with those implied by $\hat{\bar\pi}$, has almost no content on the ladders that occur in practice.
+
+\begin{proposition}\label{prop:saturation}
+The attainable patterns are the sets $S(\lcm T)$, $T\subseteq\lad$, and $V\ge J$. The model \eqref{eq:totient} imposes exactly $V-J$ restrictions on the distribution of the pattern. In particular $V=J$ if and only if $\lad$ is closed under least common multiples, as it is when $\lad$ is totally ordered by divisibility, and then the fitted pattern frequencies reproduce the observed ones exactly whenever the unconstrained solution lies in the simplex.
+\end{proposition}
+
+For the ladder $\{1,\allowbreak 100,\allowbreak 1000,\allowbreak 5000,\allowbreak 10^4\}$ used in our simulations, and for the fifteen-level ladder used on American data in Section~\ref{sec:data}, $V=J$; for $\{1,\allowbreak 10,\allowbreak 100,\allowbreak 500,\allowbreak 1000,\allowbreak 2500,\allowbreak 5000,\allowbreak 10^4,\allowbreak 2.5\cdot10^4\}$, $V=J+1$. A fit statistic built on patterns or on divisibility shares therefore cannot reject except at the boundary of the simplex, when the data ask for a negative rounding probability. What reveals whether Assumption~\ref{ass:residue} holds is the position of the report within its arithmetic class. Let $R=Y\bmod W$. Under Assumption~\ref{ass:residue}, $\Prob(R=r)=W^{-1}\sum_{\ell\in S(r)}\ell\,\bar\pi_\ell$ depends on $r$ only through its pattern; hence
+\begin{equation}\label{eq:within}
+\Prob\bigl(R=r\mid S(R)=S\bigr)=\frac{1}{|C_S|},\qquad r\in C_S=\{r\in\{0,\dots,W-1\}:\ S(r)=S\},
+\end{equation}
+whatever $\bar\pi$ and whatever the dependence of the level on income. Equation~\eqref{eq:within} contains Proposition~\ref{prop:totient}(c), which groups residues by their greatest common divisor with $W$, and adds where in the period $[0,W)$ the reports of a class fall. When income does not span many periods of $W$, reports of every class crowd into the part of the period where income is concentrated, and \eqref{eq:within} fails in a way no reweighting of the levels can absorb.
+
+\begin{theorem}\label{thm:spec}
+Let $Y_1,\dots,Y_n$ be independent copies of $Y$, and partition $[0,W)$ into $M$ arcs of equal length. For each attainable pattern $S$ and arc $j$ let $N_{Sj}$ be the number of reports with pattern $S$ and residue in arc $j$, put $N_S=\sum_jN_{Sj}$, and let $p_{j\mid S}=|C_S\cap\mathrm{arc}_j|/|C_S|$. Define
+\[
+T_n=\sum_S\sum_{j}\frac{(N_{Sj}-N_S\,p_{j\mid S})^2}{N_S\,p_{j\mid S}},
+\]
+the inner sum running over arcs with $p_{j\mid S}>0$.
+\begin{enumerate}
+\item[(a)] Under Assumption~\ref{ass:residue}, conditionally on $(N_S)_S$ the vectors $(N_{Sj})_j$ are independent multinomial with probabilities $p_{\cdot\mid S}$, whatever the mechanism. The conditional distribution of $T_n$ is known, and $T_n$ is asymptotically $\chi^2$ with $\sum_S(M_S-1)$ degrees of freedom, the sum running over patterns of positive probability and $M_S$ being the number of arcs with $p_{j\mid S}>0$.
+\item[(b)] If for some pattern $S$ with $\Prob(S(R)=S)>0$ the conditional distribution of the arc of $R$ given $S(R)=S$ differs from $p_{\cdot\mid S}$, then $T_n/n$ converges almost surely to a positive constant, and the test that rejects for large $T_n$ is consistent.
+\end{enumerate}
+\end{theorem}
+
+The test neither estimates $\bar\pi$ nor requires it to lie in the interior of the simplex, and its $p$-value is computed exactly by conditional Monte Carlo. We use $M=10$, exclude from the statistic and from its conditional distribution the classes with fewer than twenty reports, and with survey weights use weighted counts rescaled to the effective sample size $n_{\mathrm{eff}}=(\sum_iw_i)^2/\sum_iw_i^2$, a first-order Rao--Scott correction. We report $T_n$ divided by its degrees of freedom, near one under the null, with the $p$-value.
+
+The test rejects when the residues of the multipliers are not uniform, a property of the income distribution relative to $W$; when a level in use divides $W$ but is absent from the ladder, since such reports sit at the wrong position within their class; and when reports carry mass at amounts that are not the result of rounding, if that mass is placed unevenly within a class; it cannot tell these apart. A rejection invalidates the estimated mixture, hence the active set, $\hat w_0$ and anything built on the profile, in particular the inversion of Section~\ref{sec:inversion}, but not Lemma~\ref{lem:split}, which holds at any common multiple of the levels in use whatever the mechanism; when the test rejects, a departure from unimodality found at $\hat w_0$ is therefore retained only if it persists at coarser widths that are multiples of $\hat w_0$ and of every candidate level plausibly in use. A level in use that does not divide $W$ is invisible modulo $W$, so the candidate ladder must include every round amount respondents might use, in particular the coarse ones; levels of negligible estimated probability are then removed and the test rerun on the least common multiple of the active levels. An institutional amount that is a multiple of a level, a benefit of exactly \$9{,}000, say, is indistinguishable from rounding to \$1{,}000 unless it is large enough to distort the position of its class.
+
+\subsection{Active levels}
+
+Before fitting, candidate levels coarser than a quarter of the range between the first and 99th percentiles of the reports are removed, since the residues of their multipliers cannot be uniform; if the share of reports divisible by such a level exceeds the share implied by the fitted mixture by more than $\delta$, the level is in use but not identified, and the procedure reports that no lattice-compatible grid exists. The active set is $\hat A=\{\ell\in\lad:\hat{\bar\pi}_\ell\ge\delta\}$ and the certified width is $\hat w_0=\lcm\hat A$, with $\hat w_0=1$ when $\hat A$ is empty. The cut-off is not a significance level: an ignored level costs a first-order error of order $\bar\pi_\ell$ in the cell probabilities (Section~\ref{sec:resolution}), detectable once it is large relative to the sampling error of order $n^{-1/2}$, so the cut-off must shrink with the sample size. Section~\ref{sec:sim} calibrates it on the least favourable designs, those with flat stretches, and we use $\delta_n=\min\{0.02,\,2n_{\mathrm{eff}}^{-1/2}\}$, which is $0.02$ up to $n_{\mathrm{eff}}=10{,}000$ and $0.009$ at $50{,}000$. Since $\hat{\bar\pi}-\bar\pi=O_p(n^{-1/2})$ and $\delta_n$ is of the same order, a level with $\bar\pi_\ell=0$ may be retained with non-vanishing probability, while every level with $\bar\pi_\ell>0$ is retained with probability tending to one, because $\delta_n\to0$. Hence $\hat w_0$ is a multiple of $w_0$, and therefore lattice-compatible, with probability tending to one: errors in the selection coarsen the grid without breaking it.

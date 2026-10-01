@@ -1,0 +1,34 @@
+\section{Resolution finer than the certified width}\label{sec:inversion}
+
+\subsection{The reporting map and its inverse}
+
+Below the certified width the reported cell probabilities are a linear image of the latent ones through a map that depends on the profile $\pi_\ell(\cdot)$. Fix a width $w$ that divides every active level, take cells centred at the multiples of $w$, and treat the density as constant within a cell. A latent amount in the cell centred at $c$ is reported, at level $\ell$, at the multiple of $\ell$ nearest to it, which is $c$ itself when $\ell\mid c$, or, if the cell straddles a rounding boundary, at the two nearest multiples in equal parts. Writing $P$ and $q$ for the latent and reported cell vectors,
+\begin{equation}\label{eq:map}
+q=A(w)P,\qquad A(w)_{vc}=\sum_{\ell\in A}\pi_\ell(c)\,a_\ell(v,c),
+\end{equation}
+where $a_\ell(v,c)\in\{0,\tfrac12,1\}$ is the share of cell $c$ that level $\ell$ reports into cell $v$. For levels that divide $w$ we set $a_\ell(v,c)=\mathbf 1\{v=c\}$, neglecting the second-order boundary term of Lemma~\ref{lem:split}. 
+For $c$ a multiple of $w$ let $\rho(c)=\max\{\ell\in A:\ell\mid c\}$ be its roundness.
+
+\begin{theorem}\label{thm:invert}
+Suppose the active ladder $A$ is totally ordered by divisibility and $w\in A\cup\{1\}$. Then, after ordering the cells by increasing roundness, $A(w)$ is block lower triangular with diagonal diagonal blocks, and
+\[
+\det A(w)=\prod_c\ \sum_{\ell\in A:\ \ell\mid c}\pi_\ell(c).
+\]
+In particular $A(w)$ is invertible, and the latent cell vector at width $w$ is identified from the reports and the profile, whenever every cell has positive probability of being reported at a level that divides its centre; it suffices that $\sum_{\ell\le w}\pi_\ell(c)>0$ for every $c$.
+\end{theorem}
+
+\begin{proof}
+Let $c$ be a cell centre and $\ell\in A$. If $\ell\mid w$, level $\ell$ contributes $\pi_\ell(c)$ to the diagonal by the convention above. If $\ell\nmid w$ then $\ell>w$, because $A$ is a chain containing $w$ or $w=1$; if moreover $\ell\mid c$, the rounding interval of level $\ell$ around $c$ contains the cell, so every amount in it is reported at $c$ and again contributes $\pi_\ell(c)$ to the diagonal. If $\ell\nmid c$ then, $A$ being a chain, no level at least as coarse as $\ell$ divides $c$, so $\rho(c)<\ell$; the cells that receive this mass are centred at multiples of $\ell$, whose roundness is at least $\ell>\rho(c)$. Every off-diagonal entry of column $c$ therefore lies in a row of strictly greater roundness, which gives the triangular structure, and entries between distinct cells of equal roundness vanish. The determinant of a block triangular matrix with diagonal blocks is the product of its diagonal entries.
+\end{proof}
+
+The identified width is thus the finest level in use, not the least common multiple: for a ladder whose finest non-trivial level is \$100 that is a factor of five hundred below $w_0=\$50{,}000$. The finest level is also the limit, since densities that differ only within cells of width $\ell$ are observationally equivalent when no respondent reports more finely than $\ell$. For ladders that are not chains, such as those containing both \$10 and \$25, the ordering argument fails (rounding \$75 to the nearest \$10 produces \$80, which is less round than \$75), and invertibility is verified numerically. The condition number $\kappa(A(w))$, computable from the estimated mechanism before any data are inverted, prices the resolution: for the ladder estimated from California wages in the ACS (Section~\ref{sec:data}), with its mixture weights used as a constant profile over incomes up to \$250{,}000, it is $1.1$ at $w=\$25{,}000$, $1.6$ at \$5{,}000, $5.5$ at \$1{,}000, $38$ at \$500 and $190$ at \$100.
+
+The inverted histogram is $\hat P=\argmin\{\|\hat A(w)P-\hat q\|^2:\ P\ge0,\ \mathbf 1^\top P=1\}$, computed by projected gradient, and the test statistic is the excess mass difference of $\hat P$ over its bulk. Sampling error lives on the report scale, so the bootstrap draws $q^\ast\sim\mathrm{Mult}\{n_{\mathrm{eff}},\hat A(w)\tilde P\}/n_{\mathrm{eff}}$ from the image of the unimodal projection $\tilde P$ of $\hat P$ and inverts each draw; the variance that the inversion adds is thereby carried by the null distribution.
+
+\subsection{Which profile the inversion needs}
+
+The map \eqref{eq:map} involves $\pi_\ell(c)=\Prob(L=\ell\mid X\in C_c)$, the profile conditional on latent income. An estimator that conditions on the report returns a different function, since $\Prob(L=\ell\mid Y=y)=0$ whenever $\ell\nmid y$: under the mechanism of our simulations, at \$12{,}000 the latent-conditional profile over the levels $\{1,\allowbreak 100,\allowbreak 1000,\allowbreak 5000,\allowbreak 10^4\}$ is $(0.153,\allowbreak 0.136,\allowbreak 0.339,\allowbreak 0.169,\allowbreak 0.203)$, while the report-conditional one is $(0,0.038,0.961,0,0)$. The right object is nevertheless identified: fitting the mixture of Proposition~\ref{prop:totient} on bands of reports whose edges are multiples of $W$ estimates band averages of the latent-conditional profile, up to the mass that rounding carries across the band edges (Proposition~\ref{prop:band} of the supplement).
+
+Identification is not the binding constraint; precision is. The inverted histogram amplifies an error in the profile into an alternation of the cell probabilities with the period of the coarse levels, which the bootstrap, treating the profile as known, does not account for; in Section~\ref{sec:sim} the inverted test holds its level at $n=200{,}000$ when handed the true latent-conditional profile, while with an estimated one---a logit fitted to the reports, the band estimator of Proposition~\ref{prop:band}(b), or the constant marginal weights---its rejection rate on some unimodal design grows with $n$, a fixed error of a few percentage points in the profile becoming detectable. The inversion is therefore a way of using an external estimate of the profile, from a validation or reinterview study that observes both the latent amount and the report, rather than a procedure that can be run from the reports alone at large sample sizes.
+
+The inverted test also fails in the confident direction when the ladder it is given is wrong: omitting the \$5{,}000 level, with the true profile of the remaining levels, drives its rejection rate to between $0.95$ and one on four of the five unimodal designs of Section~\ref{sec:sim}, while the test at the certified width, which estimates the active set rather than assuming it, is unaffected. Theorem~\ref{thm:spec} supplies the gate: we invert only when the specification test does not reject on the active ladder; it rejects for every American variable of Section~\ref{sec:data}.

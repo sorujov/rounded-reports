@@ -1,0 +1,58 @@
+\section{Simulations}\label{sec:sim}
+
+\subsection{Design}
+
+Latent incomes are drawn from seven unimodal and eleven bimodal distributions. The unimodal ones are a lognormal (LN, median \$40{,}135), a gamma (GA), a Singh--Maddala (SM), a lognormal mixture with a shoulder on its upper side (SHLD), a density with a nearly flat stretch between \$50{,}000 and \$95{,}000 (PLAT), and two piecewise linear densities that are exactly flat, one on the decreasing side of the mode (FLATDEC) and one at the top (FLATTOP). The last two put the cell vector on the boundary of $\U$, where Theorem~\ref{thm:boot}(c) applies. The bimodal distributions are mixtures of two lognormals with valleys \$6{,}000 to \$16{,}000 wide (N1--N3), \$25{,}000 to \$108{,}000 wide (M1--M6, including an unequal mixture and a low-income cluster), or \$52{,}000 wide but shallow, the density at the valley floor being $0.85$ and $0.66$ of the lower peak (S1, S2).
+
+Four reporting mechanisms are used. \emph{Exact}: no rounding. \emph{ACS}: the ladder $\{1,\allowbreak 100,\allowbreak 1000,\allowbreak 5000,\allowbreak 10^4\}$ with a profile that moves weight towards coarse levels as income rises, calibrated so that 84, 43 and 28 per cent of reports are multiples of \$1{,}000, \$5{,}000 and \$10{,}000; $w_0=\$10{,}000$ and the residues of every active level are close to uniform. \emph{ACS${}+{}$\$25k}: the same, with a quarter of respondents rounding to \$25{,}000, so that $w_0=\$50{,}000$ and between a quarter and a half of the reports lie below $W$. \emph{Types}: a third of respondents round coarsely whatever their income and the rest almost never, and the ladder contains \$2{,}500. The sample sizes are 2{,}000 and 10{,}000, with 400 replications for unimodal and 200 for bimodal designs, at nominal level five per cent. The candidate ladder is $\{1,\allowbreak 10,\allowbreak 100,\allowbreak 500,\allowbreak 1000,\allowbreak 2500,\allowbreak 5000,\allowbreak 10^4,\allowbreak 2.5\cdot10^4\}$ and $\delta_n$ is as in Section~\ref{sec:mechanism}.
+
+Besides the cell test of Section~\ref{sec:test} we report five procedures: the excess mass test calibrated as in \citet{AmeijeirasAlonsoCRC2019} and the dip test calibrated as in \citet{ChengHall1998}, both on the logarithm of the reports; and three natural repairs, the critical-bandwidth test with the bandwidth bounded below by $0.7$ times the coarsest active level, at which a Gaussian kernel removes a lattice of that spacing; the excess mass test applied after each report is replaced by a uniform draw over the rounding interval implied by a level drawn from its posterior given the report's pattern; and the excess mass statistic of the reports calibrated against a unimodal null passed through the estimated mechanism.
+
+\subsection{Results}
+
+\begin{table}[t]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Rejection frequencies at the five per cent level, $n=10{,}000$; 400 replications for unimodal designs (upper panel), 200 for bimodal designs (lower panel). EM: excess mass; dip: dip test; floor: critical bandwidth with a bandwidth floor; jit.: excess mass after jittering; rer.: excess mass calibrated against a re-rounded null; cell: the test of Section~\ref{sec:test} at $\hat w_0$, counted as not rejecting when the procedure declines. Monte Carlo standard errors are about $0.011$ and $0.015$ at a rate of $0.05$. $^\dagger$Unimodal in levels but not in logarithms, the scale on which the first five procedures are applied.}\label{tab:sim}
+\begin{tabular}{l*{6}{c}@{\hspace{10pt}}*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{ACS mechanism} & \multicolumn{6}{c}{ACS${}+{}$\$25k}\\
+\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+design & EM & dip & floor & jit. & rer. & cell & EM & dip & floor & jit. & rer. & cell\\
+\midrule
+LN & 1.00 & 1.00 & .24 & .05 & .01 & .00 & 1.00 & 1.00 & .01 & .30 & .19 & .00 \\
+GA & 1.00 & 1.00 & .41 & .05 & .01 & .00 & 1.00 & 1.00 & .11 & .06 & .76 & .00 \\
+SM & 1.00 & 1.00 & .20 & .03 & .27 & .00 & 1.00 & 1.00 & .18 & 1.00 & .01 & .00 \\
+SHLD$^\dagger$ & 1.00 & 1.00 & .24 & .21 & .01 & .00 & 1.00 & 1.00 & .00 & .47 & .01 & .00 \\
+PLAT & 1.00 & 1.00 & .18 & .04 & .00 & .00 & 1.00 & 1.00 & .00 & .06 & .55 & .00 \\
+FLATDEC$^\dagger$ & 1.00 & 1.00 & .29 & 1.00 & .00 & .01 & 1.00 & 1.00 & .32 & 1.00 & .00 & .00 \\
+FLATTOP & 1.00 & 1.00 & .27 & .02 & .00 & .03 & 1.00 & 1.00 & .26 & .02 & .03 & .00 \\
+\midrule
+N1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & .14 & 1.00 & 1.00 & .00 \\
+N2 & 1.00 & 1.00 & .99 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & .00 \\
+N3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M1 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M3 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 \\
+M4 & 1.00 & 1.00 & 1.00 & 1.00 & .93 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & .38 & .00 \\
+M5 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & .02 & .00 \\
+M6 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .97 & 1.00 \\
+S1 & 1.00 & 1.00 & 1.00 & 1.00 & .62 & .74 & 1.00 & 1.00 & .00 & 1.00 & .95 & .00 \\
+S2 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & .00 & 1.00 & .43 & .00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:sim} reports the rejection frequencies at $n=10{,}000$ under the two ACS mechanisms; Tables~S3--S5 of the supplement cover exact and type-dependent reporting and $n=2{,}000$.
+
+Under all three rounding mechanisms the excess mass and dip tests reject unimodality in every one of the $16{,}800$ replications drawn from the seven unimodal designs. With exact reports they hold their level on the four designs that are unimodal on the logarithmic scale, with rejection rates between $0.01$ and $0.06$ (the dip test is oversized on the plateau, $0.30$--$0.35$), and correctly reject on SHLD and FLATDEC, which are unimodal in levels but not in logarithms.
+
+The repairs help only when the mechanism is benign. A bandwidth floor removes the heaps and much of the signal with them, and its size ranges from $0.18$ to $0.41$ under the ACS mechanism. Jittering over the posterior rounding interval holds its level on the designs unimodal in logarithms under the ACS and type mechanisms, but not once a quarter of respondents round to \$25{,}000, where it rejects in $30$ per cent of lognormal and every Singh--Maddala sample. Calibrating the usual statistic against a re-rounded null is the strongest competitor: under the ACS mechanism it has power close to one against every bimodal design except the low-income cluster, including the narrow valleys the cell test cannot see, but its level rests on the estimated mechanism being right, reaching $0.27$ on the Singh--Maddala design under the ACS mechanism and $0.55$ and $0.76$ on the plateau and gamma designs when the \$25{,}000 level is added.
+
+The cell test holds its level everywhere. Across the seven unimodal designs, four mechanisms and two sample sizes its largest rejection rate is $0.070$, on FLATDEC with exact reports at $n=2{,}000$, a design on the boundary of the null; the next largest is $0.048$. Resampling from the unmodified projection instead of the moment-selected centre raises the rate on the same design to $0.12$ and $0.09$, the failure Theorem~\ref{thm:boot} predicts. When the \$25{,}000 level is active the certified width is \$50{,}000, three or four cells remain, and the procedure declines or accepts: it cannot be wrong in the confident direction.
+
+The cell test pays for this in resolution. At $\hat w_0=\$10{,}000$ it has power one against valleys \$25{,}000 wide or wider and against the deeper shallow valley, and $0.74$ against the valley whose floor is $85$ per cent of the lower peak. Valleys narrower than the grid (N1--N3) are not identified at that width; there the fitted ladder contains a level too coarse for the support and the procedure reports that no lattice-compatible grid exists. At \$50{,}000 only the widest valley (M6) is detected. With exact reports, where $\hat w_0=1$ and the test works on five hundred to a thousand cells, its power is one against every bimodal design but S1 ($0.65$).
+
+The specification test's rejection rate on correctly specified mechanisms lies between $0.03$ and $0.09$ in every configuration of Table~S1; it rejects a ladder that omits the active levels \$500, \$2{,}500 and \$5{,}000 with probability one at $n=2{,}000$, and under the \$25{,}000 mechanism its rejection rate increases with the share of reports below $W$: $0.05$ when that share is two per cent, $0.30$ at $23$ per cent and $n=20{,}000$, one when it exceeds a third. The activity cut-off is calibrated in Table~S2: ignoring a \$25{,}000 level used by two per cent of respondents leaves the cell test at its level up to $n=10{,}000$, and at $n=50{,}000$ a one per cent level is the most that can be ignored, which is the origin of $\delta_n$.
+
+The inversion of Section~\ref{sec:inversion} was run at $w=\$5{,}000$ under a profile that moves strongly with income, at $n=50{,}000$ and $200{,}000$ (Table~S6; 60 replications, so these rates are indicative). With the true profile it holds its level, with rejection rates of at most $0.03$ on the unimodal designs; with the logit profile the rate on the plateau rises from $0.18$ to $0.40$ between the two sample sizes, with the band profiles it lies between $0.30$ and one, and with the marginal profile it is one. Omitting the \$5{,}000 level from an otherwise correct profile drives it to between $0.95$ and one on four of the five designs on which this was tried.

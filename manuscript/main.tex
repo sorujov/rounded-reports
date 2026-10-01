@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,graphicx,xcolor}
+\usepackage{xr-hyper}
+\usepackage[hidelinks]{hyperref}
+\externaldocument[][nocite]{supplement}
+\usepackage[round,authoryear]{natbib}
+\usepackage{setspace}
+\bibliographystyle{plainnat}
+\setlength{\bibsep}{2pt}
+\doublespacing
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\lad}{\mathcal{L}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\dto}{\xrightarrow{\;d\;}}
+\newcommand{\pto}{\xrightarrow{\;p\;}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%% ANON = 1 produces the anonymised version for double-anonymous review
+\newif\ifanon
+\input{anon_switch}
+
+\title{Identification and inference for the shape of a distribution from rounded reports}
+\ifanon
+\author{}
+\else
+\author{Samir Orujov\thanks{School of Business, ADA University, Baku, Azerbaijan, and Information and Communication Technologies Agency of Azerbaijan. \texttt{sorujov@ada.edu.az}.}}
+\fi
+\date{}
+
+\begin{document}
+\maketitle
+
+\input{sec0_abstract}
+\input{sec1_intro}
+\input{sec2_mechanism}
+\input{sec3_resolution}
+\input{sec4_test}
+\input{sec5_inversion}
+\input{sec6_sim}
+\input{sec7_data}
+\input{sec8_disc}
+
+\ifanon\else
+\section*{Acknowledgements}
+Simulations were run on the computing cluster of the Laboratoire de Math\'ematiques de Bretagne Atlantique and IRISA.
+\fi
+\section*{Funding}
+The author received no specific funding for this work.
+\section*{Disclosure statement}
+The author reports there are no competing interests to declare.
+\section*{Data availability statement}
+The American Community Survey and Current Population Survey files used are public-use files of the U.S. Census Bureau. Code reproducing every table and figure is provided as supplementary material.
+
+\bibliography{refs}
+\end{document}
